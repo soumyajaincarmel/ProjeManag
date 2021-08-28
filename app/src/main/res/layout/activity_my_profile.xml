@@ -1,9 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--All the constant values are added in their folders and files :
-       1. Drawable values are added in the drawable folders.
-       2. String values in the strings.xml file.
-       3. Dimen values in the dimens.xml file.
--->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
