@@ -59,7 +59,7 @@ class FirestoreClass {
     /**
      * A function to SignIn using firebase and get the user details from Firestore Database.
      */
-    fun loadUserData(activity: Activity) {
+    fun loadUserData(activity: Activity, readBoardsList: Boolean = false) {
 
         // Here we pass the collection name from which we wants the data.
         mFireStore.collection(Constants.USERS)
@@ -77,7 +77,7 @@ class FirestoreClass {
                     }
 
                     is MainActivity -> {
-                        activity.updateNavigationUserDetails(loggedInUser)
+                        activity.updateNavigationUserDetails(loggedInUser, readBoardsList)
                     }
 
                     is MyProfileActivity -> {
@@ -129,5 +129,27 @@ class FirestoreClass {
             Log.e(activity.javaClass.simpleName, "Error while creating a board", e)
             Toast.makeText(activity, "Error when updating the profile!", Toast.LENGTH_SHORT).show()
         }
+    }
+
+    fun getBoardsList(activity: MainActivity)
+    {
+        mFireStore.collection(Constants.BOARDS).whereArrayContains(Constants.ASSIGNED_TO, getCurrentUserID())
+            .get()
+            .addOnSuccessListener {
+                document -> Log.i(activity.javaClass.simpleName, document.documents.toString())
+                val boardsList : ArrayList<Board> = ArrayList()
+                for(i in document.documents)
+                {
+                    val board = i.toObject(Board::class.java)
+                    board!!.documentId = i.id
+                    boardsList.add(board)
+                }
+
+                activity.populateBoardsListToUi(boardsList)
+            }.addOnFailureListener {
+                e ->
+                activity.hideProgressDialog()
+                Log.e(activity.javaClass.simpleName, "Error while creating a Board!")
+            }
     }
 }
