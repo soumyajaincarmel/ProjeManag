@@ -1,5 +1,6 @@
 package com.example.projemanag.adapters
 
+import android.app.AlertDialog
 import android.content.Context
 import android.content.res.Resources
 import android.view.LayoutInflater
@@ -130,6 +131,11 @@ open class TaskListItemsAdapter(
                 }
 
 
+            holder.itemView.findViewById<ImageButton>(R.id.ib_delete_list).setOnClickListener {
+                alertDialogForDeleteList(position, model.title)
+            }
+
+
         }
     }
 
@@ -151,6 +157,37 @@ open class TaskListItemsAdapter(
      */
     private fun Int.toPx(): Int =
         (this * Resources.getSystem().displayMetrics.density).toInt()
+
+
+    /**
+     * Method is used to show the Alert Dialog for deleting the task list.
+     */
+    private fun alertDialogForDeleteList(position: Int, title: String) {
+        val builder = AlertDialog.Builder(context)
+        //set title for alert dialog
+        builder.setTitle("Alert")
+        //set message for alert dialog
+        builder.setMessage("Are you sure you want to delete $title.")
+        builder.setIcon(android.R.drawable.ic_dialog_alert)
+        //performing positive action
+        builder.setPositiveButton("Yes") { dialogInterface, which ->
+            dialogInterface.dismiss() // Dialog will be dismissed
+
+            if (context is TaskListActivity) {
+                context.deleteTaskList(position)
+            }
+        }
+
+        //performing negative action
+        builder.setNegativeButton("No") { dialogInterface, which ->
+            dialogInterface.dismiss() // Dialog will be dismissed
+        }
+        // Create the AlertDialog
+        val alertDialog: AlertDialog = builder.create()
+        // Set other dialog properties
+        alertDialog.setCancelable(false) // Will not allow user to cancel after clicking on remaining screen area.
+        alertDialog.show()  // show the dialog to UI
+    }
 
     /**
      * A ViewHolder describes an item view and metadata about its place within the RecyclerView.
