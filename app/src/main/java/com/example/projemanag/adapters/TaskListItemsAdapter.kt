@@ -95,6 +95,41 @@ open class TaskListItemsAdapter(
                     Toast.makeText(context, "Please Enter List Name.", Toast.LENGTH_SHORT).show()
                 }
             }
+
+            holder.itemView.findViewById<ImageButton>(R.id.ib_edit_list_name).setOnClickListener {
+                holder.itemView.findViewById<EditText>(R.id.et_edit_task_list_name)
+                    .setText(model.title)
+                holder.itemView.findViewById<LinearLayout>(R.id.ll_title_view).visibility =
+                    View.GONE
+                holder.itemView.findViewById<CardView>(R.id.cv_edit_task_list_name).visibility =
+                    View.VISIBLE
+            }
+
+            holder.itemView.findViewById<ImageButton>(R.id.ib_close_editable_view)
+                .setOnClickListener {
+                    holder.itemView.findViewById<LinearLayout>(R.id.ll_title_view).visibility =
+                        View.VISIBLE
+                    holder.itemView.findViewById<CardView>(R.id.cv_edit_task_list_name).visibility =
+                        View.GONE
+                }
+
+            holder.itemView.findViewById<ImageButton>(R.id.ib_done_edit_list_name)
+                .setOnClickListener {
+                    val listName =
+                        holder.itemView.findViewById<EditText>(R.id.et_edit_task_list_name).text.toString()
+
+                    if (listName.isNotEmpty()) {
+                        // Here we check the context is an instance of the TaskListActivity.
+                        if (context is TaskListActivity) {
+                            context.updateTaskList(position, listName, model)
+                        }
+                    } else {
+                        Toast.makeText(context, "Please Enter List Name.", Toast.LENGTH_SHORT)
+                            .show()
+                    }
+                }
+
+
         }
     }
 
