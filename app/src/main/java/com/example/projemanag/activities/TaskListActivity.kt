@@ -8,6 +8,7 @@ import com.example.projemanag.R
 import com.example.projemanag.adapters.TaskListItemsAdapter
 import com.example.projemanag.firebase.FirestoreClass
 import com.example.projemanag.models.Board
+import com.example.projemanag.models.Card
 import com.example.projemanag.models.Task
 import com.example.projemanag.utils.Constants
 
@@ -111,8 +112,7 @@ class TaskListActivity : BaseActivity() {
         FirestoreClass().getBoardDetails(this@TaskListActivity, mBoardDetails.documentId)
     }
 
-    fun updateTaskList(position : Int, listName : String, model : Task)
-    {
+    fun updateTaskList(position: Int, listName: String, model: Task) {
         val task = Task(listName, model.createdBy)
         mBoardDetails.taskList[position] = task
         mBoardDetails.taskList.removeAt(mBoardDetails.taskList.size - 1)
@@ -123,10 +123,31 @@ class TaskListActivity : BaseActivity() {
         FirestoreClass().addUpdateTaskList(this@TaskListActivity, mBoardDetails)
     }
 
-    fun deleteTaskList(position: Int)
-    {
+    fun deleteTaskList(position: Int) {
         mBoardDetails.taskList.removeAt(position)
         mBoardDetails.taskList.removeAt(mBoardDetails.taskList.size - 1)
+
+        // Show the progress dialog.
+        showProgressDialog(resources.getString(R.string.please_wait))
+
+        FirestoreClass().addUpdateTaskList(this@TaskListActivity, mBoardDetails)
+    }
+
+    fun addCardToTaskList(position: Int, cardName: String) {
+        mBoardDetails.taskList.removeAt(mBoardDetails.taskList.size - 1)
+        val cardAssignedUsersList: ArrayList<String> = ArrayList()
+        cardAssignedUsersList.add(FirestoreClass().getCurrentUserID())
+        val card = Card(cardName, FirestoreClass().getCurrentUserID(), cardAssignedUsersList)
+
+        val cardsList = mBoardDetails.taskList[position].cards
+        cardsList.add(card)
+
+        val task = Task(
+            mBoardDetails.taskList[position].title, mBoardDetails.taskList[position].createdBy,
+            cardsList
+        )
+
+        mBoardDetails.taskList[position] = task
 
         // Show the progress dialog.
         showProgressDialog(resources.getString(R.string.please_wait))

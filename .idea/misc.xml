@@ -3,8 +3,10 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/soumy/AndroidStudioProjects/ProjeManag/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.19166666666666668" />
         <entry key="..\:/Users/soumy/AndroidStudioProjects/ProjeManag/app/src/main/res/drawable/ic_action_navigation_menu.xml" value="0.19583333333333333" />
         <entry key="..\:/Users/soumy/AndroidStudioProjects/ProjeManag/app/src/main/res/drawable/ic_black_color_back_24dp.xml" value="0.15" />
+        <entry key="..\:/Users/soumy/AndroidStudioProjects/ProjeManag/app/src/main/res/drawable/ic_launcher_background.xml" value="0.19166666666666668" />
         <entry key="..\:/Users/soumy/AndroidStudioProjects/ProjeManag/app/src/main/res/drawable/nav_header_main_background.xml" value="0.19583333333333333" />
         <entry key="..\:/Users/soumy/AndroidStudioProjects/ProjeManag/app/src/main/res/drawable/shape_button_rounded.xml" value="0.13333333333333333" />
         <entry key="..\:/Users/soumy/AndroidStudioProjects/ProjeManag/app/src/main/res/drawable/white_border_shape_button_rounded.xml" value="0.13333333333333333" />
