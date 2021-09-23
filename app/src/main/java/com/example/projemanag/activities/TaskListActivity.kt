@@ -166,7 +166,9 @@ class TaskListActivity : BaseActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.action_members -> {
-                startActivity(Intent(this, MembersActivity::class.java))
+                val intent = Intent(this, MembersActivity::class.java)
+                intent.putExtra(Constants.BOARD_DETAIL, mBoardDetails)
+                startActivity(intent)
             }
         }
         return super.onOptionsItemSelected(item)
