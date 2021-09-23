@@ -20,6 +20,8 @@ import com.example.projemanag.utils.Constants
 class MembersActivity : BaseActivity() {
 
     private lateinit var mBoardDetails: Board
+    private lateinit var mAssignedMembersList:ArrayList<User>
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_members)
@@ -54,6 +56,7 @@ class MembersActivity : BaseActivity() {
     }
 
     fun setUpMembersList(list: ArrayList<User>) {
+        mAssignedMembersList = list
         hideProgressDialog()
 
         val rv_member_list = findViewById<RecyclerView>(R.id.rv_members_list)
@@ -63,6 +66,12 @@ class MembersActivity : BaseActivity() {
         val adapter = MemberListItemsAdapter(this, list)
         rv_member_list.adapter = adapter
 
+    }
+
+    fun memberDetails(user : User)
+    {
+        mBoardDetails.assignedTo.add(user.id)
+        FirestoreClass().assignMemberToBoard(this, mBoardDetails, user)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -90,7 +99,8 @@ class MembersActivity : BaseActivity() {
             if(email.isNotEmpty())
             {
                 dialog.dismiss()
-                //TODO Implement adding member logic
+                showProgressDialog(resources.getString(R.string.please_wait))
+                FirestoreClass().getMemberDetails(this, email)
             }
             else
             {
@@ -102,5 +112,13 @@ class MembersActivity : BaseActivity() {
         }
         dialog.show()
 
+    }
+
+
+    fun memberAssignSuccess(user : User)
+    {
+        hideProgressDialog()
+        mAssignedMembersList.add(user)
+        setUpMembersList(mAssignedMembersList)
     }
 }

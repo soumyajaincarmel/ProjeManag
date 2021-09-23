@@ -29,6 +29,8 @@ object Constants {
 
     const val ID: String = "id"
 
+    const val EMAIL: String = "email"
+
     //A unique code for asking the Read Storage Permission using this we will be check and identify in the method onRequestPermissionsResult
     const val READ_STORAGE_PERMISSION_CODE = 1
 
