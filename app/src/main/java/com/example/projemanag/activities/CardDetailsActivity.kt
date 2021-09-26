@@ -1,6 +1,8 @@
 package com.example.projemanag.activities
 
 import android.os.Bundle
+import android.view.Menu
+import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import com.example.projemanag.R
@@ -22,6 +24,11 @@ class CardDetailsActivity : AppCompatActivity() {
         getIntentData()
         setUpActionBar()
 
+        val et_name_card_details = findViewById<EditText>(R.id.et_name_card_details)
+        et_name_card_details.setText(mBoardDetails.taskList[mTaskListPosition].cards[mCardListPosition].name)
+        et_name_card_details.setSelection(et_name_card_details.text.toString().length) // The cursor after the string length
+
+
     }
 
 
@@ -41,6 +48,11 @@ class CardDetailsActivity : AppCompatActivity() {
             onBackPressed()
         }
 
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_delete_card, menu)
+        return super.onCreateOptionsMenu(menu)
     }
 
     private fun getIntentData() {

@@ -9,11 +9,13 @@
         <entry key="..\:/Users/soumy/AndroidStudioProjects/ProjeManag/app/src/main/res/drawable/ic_black_color_back_24dp.xml" value="0.15" />
         <entry key="..\:/Users/soumy/AndroidStudioProjects/ProjeManag/app/src/main/res/drawable/ic_launcher_background.xml" value="0.19166666666666668" />
         <entry key="..\:/Users/soumy/AndroidStudioProjects/ProjeManag/app/src/main/res/drawable/ic_vector_add_24dp.xml" value="0.1" />
+        <entry key="..\:/Users/soumy/AndroidStudioProjects/ProjeManag/app/src/main/res/drawable/ic_vector_delete_24.xml" value="0.19282051282051282" />
         <entry key="..\:/Users/soumy/AndroidStudioProjects/ProjeManag/app/src/main/res/drawable/nav_header_main_background.xml" value="0.19583333333333333" />
         <entry key="..\:/Users/soumy/AndroidStudioProjects/ProjeManag/app/src/main/res/drawable/shape_button_rounded.xml" value="0.13333333333333333" />
         <entry key="..\:/Users/soumy/AndroidStudioProjects/ProjeManag/app/src/main/res/drawable/shape_dialog_rounded.xml" value="0.1" />
         <entry key="..\:/Users/soumy/AndroidStudioProjects/ProjeManag/app/src/main/res/drawable/white_border_shape_button_rounded.xml" value="0.13333333333333333" />
         <entry key="..\:/Users/soumy/AndroidStudioProjects/ProjeManag/app/src/main/res/layout/activity_base.xml" value="0.1796875" />
+        <entry key="..\:/Users/soumy/AndroidStudioProjects/ProjeManag/app/src/main/res/layout/activity_card_details.xml" value="0.22" />
         <entry key="..\:/Users/soumy/AndroidStudioProjects/ProjeManag/app/src/main/res/layout/activity_create_board.xml" value="0.1796875" />
         <entry key="..\:/Users/soumy/AndroidStudioProjects/ProjeManag/app/src/main/res/layout/activity_intro.xml" value="0.1796875" />
         <entry key="..\:/Users/soumy/AndroidStudioProjects/ProjeManag/app/src/main/res/layout/activity_main.xml" value="0.1796875" />
@@ -34,6 +36,7 @@
         <entry key="..\:/Users/soumy/AndroidStudioProjects/ProjeManag/app/src/main/res/layout/nav_header_main.xml" value="0.1796875" />
         <entry key="..\:/Users/soumy/AndroidStudioProjects/ProjeManag/app/src/main/res/menu/activity_main_drawer.xml" value="0.1796875" />
         <entry key="..\:/Users/soumy/AndroidStudioProjects/ProjeManag/app/src/main/res/menu/menu_add_member.xml" value="0.1796875" />
+        <entry key="..\:/Users/soumy/AndroidStudioProjects/ProjeManag/app/src/main/res/menu/menu_delete_card.xml" value="0.1796875" />
         <entry key="..\:/Users/soumy/AndroidStudioProjects/ProjeManag/app/src/main/res/menu/menu_members.xml" value="0.1796875" />
       </map>
     </option>
