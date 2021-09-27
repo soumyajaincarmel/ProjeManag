@@ -54,6 +54,12 @@ class CardDetailsActivity : BaseActivity() {
             showLabelColorsListDialog()
         }
 
+        mSelectedColor = mBoardDetails.taskList[mTaskListPosition].cards[mCardListPosition].labelColor
+        if(mSelectedColor.isNotEmpty())
+        {
+            setColor()
+        }
+
 
     }
 
@@ -200,7 +206,8 @@ class CardDetailsActivity : BaseActivity() {
         val listDialog = object : LabelColorListDialog(
             this@CardDetailsActivity,
             colorsList,
-            resources.getString(R.string.str_select_label_color)
+            resources.getString(R.string.str_select_label_color),
+            mSelectedColor
         ) {
             override fun onItemSelected(color: String) {
                 mSelectedColor = color
