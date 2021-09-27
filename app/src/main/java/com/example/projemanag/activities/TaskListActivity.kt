@@ -14,6 +14,7 @@ import com.example.projemanag.firebase.FirestoreClass
 import com.example.projemanag.models.Board
 import com.example.projemanag.models.Card
 import com.example.projemanag.models.Task
+import com.example.projemanag.models.User
 import com.example.projemanag.utils.Constants
 
 class TaskListActivity : BaseActivity() {
@@ -22,6 +23,8 @@ class TaskListActivity : BaseActivity() {
     private lateinit var mBoardDetails: Board
 
     private lateinit var mBoardDocumentId : String
+
+    private lateinit var mAssignedMembersDetailList : ArrayList<User>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -100,6 +103,9 @@ class TaskListActivity : BaseActivity() {
         // Create an instance of TaskListItemsAdapter and pass the task list to it.
         val adapter = TaskListItemsAdapter(this@TaskListActivity, mBoardDetails.taskList)
         rv_task_list.adapter = adapter // Attach the adapter to the recyclerView.
+
+        showProgressDialog(resources.getString(R.string.please_wait))
+        FirestoreClass().getAssignedMembersListDetails(this, mBoardDetails.assignedTo)
     }
 
 
@@ -184,6 +190,7 @@ class TaskListActivity : BaseActivity() {
         intent.putExtra(Constants.BOARD_DETAIL, mBoardDetails)
         intent.putExtra(Constants.TASK_LIST_ITEM_POSITION, taskListPosition)
         intent.putExtra(Constants.CARD_LIST_ITEM_POSITION, cardPosition)
+        intent.putExtra(Constants.BOARD_MEMBERS_LIST, mAssignedMembersDetailList)
         startActivityForResult(intent, CARD_DETAILS_REQUEST_CODE)
     }
 
@@ -202,6 +209,13 @@ class TaskListActivity : BaseActivity() {
             }
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    fun boardMemberDetailsList(list : ArrayList<User>)
+    {
+        mAssignedMembersDetailList = list
+
+        hideProgressDialog()
     }
 
     companion object{
