@@ -19,6 +19,7 @@ import com.example.projemanag.models.Card
 import com.example.projemanag.models.Task
 import com.example.projemanag.models.User
 import com.example.projemanag.utils.Constants
+import com.projemanag.dialogs.MembersListDialog
 
 class CardDetailsActivity : BaseActivity() {
 
@@ -29,7 +30,7 @@ class CardDetailsActivity : BaseActivity() {
 
     private var mSelectedColor = ""
 
-    private lateinit var mMembersDetailsList : ArrayList<User>
+    private lateinit var mMembersDetailsList: ArrayList<User>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -57,10 +58,15 @@ class CardDetailsActivity : BaseActivity() {
             showLabelColorsListDialog()
         }
 
-        mSelectedColor = mBoardDetails.taskList[mTaskListPosition].cards[mCardListPosition].labelColor
-        if(mSelectedColor.isNotEmpty())
-        {
+        mSelectedColor =
+            mBoardDetails.taskList[mTaskListPosition].cards[mCardListPosition].labelColor
+        if (mSelectedColor.isNotEmpty()) {
             setColor()
+        }
+
+        val tv_select_members = findViewById<TextView>(R.id.tv_select_members)
+        tv_select_members.setOnClickListener {
+            membersListDialog()
         }
 
 
@@ -141,8 +147,7 @@ class CardDetailsActivity : BaseActivity() {
         if (intent.hasExtra(Constants.TASK_LIST_ITEM_POSITION)) {
             mTaskListPosition = intent.getIntExtra(Constants.TASK_LIST_ITEM_POSITION, -1)
         }
-        if(intent.hasExtra(Constants.BOARD_MEMBERS_LIST))
-        {
+        if (intent.hasExtra(Constants.BOARD_MEMBERS_LIST)) {
             mMembersDetailsList = intent.getParcelableArrayListExtra(Constants.BOARD_MEMBERS_LIST)!!
         }
     }
@@ -151,6 +156,38 @@ class CardDetailsActivity : BaseActivity() {
         hideProgressDialog()
         setResult(Activity.RESULT_OK)
         finish()
+    }
+
+    private fun membersListDialog() {
+
+        // Here we get the updated assigned members list
+        val cardAssignedMembersList =
+            mBoardDetails.taskList[mTaskListPosition].cards[mCardListPosition].assignedTo
+
+        if (cardAssignedMembersList.size > 0) {
+            // Here we got the details of assigned members list from the global members list which is passed from the Task List screen.
+            for (i in mMembersDetailsList.indices) {
+                for (j in cardAssignedMembersList) {
+                    if (mMembersDetailsList[i].id == j) {
+                        mMembersDetailsList[i].selected = true
+                    }
+                }
+            }
+        } else {
+            for (i in mMembersDetailsList.indices) {
+                mMembersDetailsList[i].selected = false
+            }
+        }
+
+        val listDialog = object : MembersListDialog(
+            this@CardDetailsActivity,
+            mMembersDetailsList,
+            resources.getString(R.string.str_select_member)
+        ) {
+            override fun onItemSelected(user: User, action: String) {
+            }
+        }
+        listDialog.show()
     }
 
     private fun updateCardDetails() {
