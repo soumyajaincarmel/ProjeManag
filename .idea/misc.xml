@@ -6,6 +6,7 @@
         <entry key="..\:/Users/soumy/AndroidStudioProjects/ProjeManag/app/src/main/res/drawable-anydpi/shape_dialog_rounded.xml" value="0.1" />
         <entry key="..\:/Users/soumy/AndroidStudioProjects/ProjeManag/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.19166666666666668" />
         <entry key="..\:/Users/soumy/AndroidStudioProjects/ProjeManag/app/src/main/res/drawable/ic_action_navigation_menu.xml" value="0.19583333333333333" />
+        <entry key="..\:/Users/soumy/AndroidStudioProjects/ProjeManag/app/src/main/res/drawable/ic_add_member.xml" value="0.1527777777777778" />
         <entry key="..\:/Users/soumy/AndroidStudioProjects/ProjeManag/app/src/main/res/drawable/ic_black_color_back_24dp.xml" value="0.15" />
         <entry key="..\:/Users/soumy/AndroidStudioProjects/ProjeManag/app/src/main/res/drawable/ic_launcher_background.xml" value="0.19166666666666668" />
         <entry key="..\:/Users/soumy/AndroidStudioProjects/ProjeManag/app/src/main/res/drawable/ic_vector_add_24dp.xml" value="0.1" />
@@ -31,6 +32,7 @@
         <entry key="..\:/Users/soumy/AndroidStudioProjects/ProjeManag/app/src/main/res/layout/dialog_search_member.xml" value="0.22" />
         <entry key="..\:/Users/soumy/AndroidStudioProjects/ProjeManag/app/src/main/res/layout/item_board.xml" value="0.13333333333333333" />
         <entry key="..\:/Users/soumy/AndroidStudioProjects/ProjeManag/app/src/main/res/layout/item_card.xml" value="0.1796875" />
+        <entry key="..\:/Users/soumy/AndroidStudioProjects/ProjeManag/app/src/main/res/layout/item_card_selected_member.xml" value="0.1796875" />
         <entry key="..\:/Users/soumy/AndroidStudioProjects/ProjeManag/app/src/main/res/layout/item_label_colour.xml" value="0.1796875" />
         <entry key="..\:/Users/soumy/AndroidStudioProjects/ProjeManag/app/src/main/res/layout/item_member.xml" value="0.22" />
         <entry key="..\:/Users/soumy/AndroidStudioProjects/ProjeManag/app/src/main/res/layout/item_task.xml" value="0.1574074074074074" />
