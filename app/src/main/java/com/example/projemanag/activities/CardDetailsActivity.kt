@@ -70,6 +70,8 @@ class CardDetailsActivity : BaseActivity() {
             membersListDialog()
         }
 
+        setUpSelectedMembersList()
+
 
     }
 
@@ -186,6 +188,28 @@ class CardDetailsActivity : BaseActivity() {
             resources.getString(R.string.str_select_member)
         ) {
             override fun onItemSelected(user: User, action: String) {
+                if (action == Constants.SELECT) {
+                    if (!mBoardDetails.taskList[mTaskListPosition].cards[mCardListPosition].assignedTo.contains(
+                            user.id
+                        )
+                    ) {
+                        mBoardDetails.taskList[mTaskListPosition].cards[mCardListPosition].assignedTo.add(
+                            user.id
+                        )
+                    }
+                } else {
+                    mBoardDetails.taskList[mTaskListPosition].cards[mCardListPosition].assignedTo.remove(
+                        user.id
+                    )
+
+                    for (i in mMembersDetailsList.indices) {
+                        if (mMembersDetailsList[i].id == user.id) {
+                            mMembersDetailsList[i].selected = false
+                        }
+                    }
+                }
+
+                setUpSelectedMembersList()
             }
         }
         listDialog.show()
