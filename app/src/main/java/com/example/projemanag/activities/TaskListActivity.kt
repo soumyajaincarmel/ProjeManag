@@ -22,9 +22,9 @@ class TaskListActivity : BaseActivity() {
     // A global variable for Board Details.
     private lateinit var mBoardDetails: Board
 
-    private lateinit var mBoardDocumentId : String
+    private lateinit var mBoardDocumentId: String
 
-    lateinit var mAssignedMembersDetailList : ArrayList<User>
+    lateinit var mAssignedMembersDetailList: ArrayList<User>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,19 +42,14 @@ class TaskListActivity : BaseActivity() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if(resultCode == Activity.RESULT_OK && requestCode == MEMBERS_REQUEST_CODE || requestCode == CARD_DETAILS_REQUEST_CODE)
-        {
+        if (resultCode == Activity.RESULT_OK && requestCode == MEMBERS_REQUEST_CODE || requestCode == CARD_DETAILS_REQUEST_CODE) {
             // Show the progress dialog.
             showProgressDialog(resources.getString(R.string.please_wait))
             FirestoreClass().getBoardDetails(this@TaskListActivity, mBoardDocumentId)
-        }
-        else
-        {
+        } else {
             Log.e("Cancelled", "Cancelled")
         }
     }
-
-
 
 
     /**
@@ -169,8 +164,7 @@ class TaskListActivity : BaseActivity() {
         FirestoreClass().addUpdateTaskList(this@TaskListActivity, mBoardDetails)
     }
 
-    fun cardDetails(taskListPosition : Int, cardPosition : Int)
-    {
+    fun cardDetails(taskListPosition: Int, cardPosition: Int) {
         val intent = Intent(this, CardDetailsActivity::class.java)
         intent.putExtra(Constants.BOARD_DETAIL, mBoardDetails)
         intent.putExtra(Constants.TASK_LIST_ITEM_POSITION, taskListPosition)
@@ -196,8 +190,7 @@ class TaskListActivity : BaseActivity() {
         return super.onOptionsItemSelected(item)
     }
 
-    fun boardMemberDetailsList(list : ArrayList<User>)
-    {
+    fun boardMemberDetailsList(list: ArrayList<User>) {
         mAssignedMembersDetailList = list
 
         hideProgressDialog()
@@ -217,8 +210,17 @@ class TaskListActivity : BaseActivity() {
         rv_task_list.adapter = adapter // Attach the adapter to the recyclerView.
     }
 
-    companion object{
-        const val MEMBERS_REQUEST_CODE : Int = 13
-        const val CARD_DETAILS_REQUEST_CODE : Int = 14
+    fun updateCardsInTaskList(taskListPosition: Int, cards: ArrayList<Card>) {
+        mBoardDetails.taskList.removeAt(mBoardDetails.taskList.size - 1)
+        mBoardDetails.taskList[taskListPosition].cards = cards
+
+        showProgressDialog(resources.getString(R.string.please_wait))
+
+        FirestoreClass().addUpdateTaskList(this@TaskListActivity, mBoardDetails)
+    }
+
+    companion object {
+        const val MEMBERS_REQUEST_CODE: Int = 13
+        const val CARD_DETAILS_REQUEST_CODE: Int = 14
     }
 }
