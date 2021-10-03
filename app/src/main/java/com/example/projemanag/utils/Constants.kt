@@ -34,10 +34,26 @@ object Constants {
     const val TASK_LIST_ITEM_POSITION: String = "task_list_item_position"
     const val CARD_LIST_ITEM_POSITION: String = "card_list_item_position"
 
-    const val BOARD_MEMBERS_LIST : String = "board_members_list"
+    const val BOARD_MEMBERS_LIST: String = "board_members_list"
 
-    const val SELECT : String = "Select"
-    const val UN_SELECT : String = "UnSelect"
+    const val SELECT: String = "Select"
+    const val UN_SELECT: String = "UnSelect"
+
+    const val PROJE_MANAG_PREFERENCES = "proje_manag_preferences"
+
+    const val FCM_TOKEN: String = "fcmToken"
+    const val FCM_TOKEN_UPDATED: String = "fcmTokenUpdated"
+
+    const val FCM_BASE_URL: String = "https://fcm.googleapis.com/fcm/send"
+    const val FCM_AUTHORIZATION: String = "authorization"
+    const val FCM_KEY: String = "key"
+    const val FCM_SERVER_KEY: String =
+        "AAAA8lsUvgw:APA91bGquwXLwDaTU1iY92VlfHIHYWp-mb7WP-31waaAHJWo_CRlmHoQ2gSUgC8d28wFS4scLML0NRBDy7ywJUv9Ykw1hGh_chnpLqcdBw8_lpqhjs20XUJJmv9yol3PMrV2ewKDhkdm"
+    const val FCM_KEY_TITLE: String = "title"
+    const val FCM_KEY_MESSAGE: String = "message"
+    const val FCM_KEY_DATA: String = "data"
+    const val FCM_KEY_TO: String = "to"
+
 
     //A unique code for asking the Read Storage Permission using this we will be check and identify in the method onRequestPermissionsResult
     const val READ_STORAGE_PERMISSION_CODE = 1
