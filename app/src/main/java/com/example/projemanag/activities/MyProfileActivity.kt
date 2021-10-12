@@ -228,6 +228,7 @@ class MyProfileActivity : BaseActivity() {
                 "You haven't made any changes!",
                 Toast.LENGTH_SHORT
             ).show()
+            finish()
         }
 
     }
