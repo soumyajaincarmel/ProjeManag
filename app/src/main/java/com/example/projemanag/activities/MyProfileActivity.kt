@@ -65,7 +65,6 @@ class MyProfileActivity : BaseActivity() {
                 uploadUserImage()
             } else {
                 showProgressDialog(resources.getString(R.string.please_wait))
-
                 updateUserProfileData()
             }
         }
@@ -222,6 +221,13 @@ class MyProfileActivity : BaseActivity() {
 
         if (anyChangesMde) {
             FirestoreClass().updateUserProfileData(this, userHashMap)
+        } else {
+            hideProgressDialog()
+            Toast.makeText(
+                this@MyProfileActivity,
+                "You haven't made any changes!",
+                Toast.LENGTH_SHORT
+            ).show()
         }
 
     }
