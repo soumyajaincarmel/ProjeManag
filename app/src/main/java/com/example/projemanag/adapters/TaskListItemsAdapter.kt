@@ -133,7 +133,8 @@ open class TaskListItemsAdapter(
                     if (listName.isNotEmpty()) {
                         // Here we check the context is an instance of the TaskListActivity.
                         if (context is TaskListActivity) {
-                            context.updateTaskList(position, listName, model)
+                            model.title = listName
+                            context.updateTaskList(position, model)
                         }
                     } else {
                         Toast.makeText(context, "Please Enter List Name.", Toast.LENGTH_SHORT)
