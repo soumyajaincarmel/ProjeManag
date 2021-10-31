@@ -214,7 +214,11 @@ class MyProfileActivity : BaseActivity() {
         }
 
         if (etMobile.text.toString() != mUserDetails.mobile.toString()) {
-            userHashMap[Constants.MOBILE] = etMobile.text.toString().toLong()
+            if (etMobile.text.toString().isEmpty()) {
+                userHashMap[Constants.MOBILE] = 0
+            } else {
+                userHashMap[Constants.MOBILE] = etMobile.text.toString().toLong()
+            }
             anyChangesMde = true
 
         }
