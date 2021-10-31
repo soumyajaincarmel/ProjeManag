@@ -9,24 +9,23 @@ import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import android.widget.TextView
-import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
-import androidx.drawerlayout.widget.DrawerLayout
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.projemanag.R
 import com.example.projemanag.adapters.BoardsItemAdapter
+import com.example.projemanag.databinding.ActivityMainBinding
 import com.example.projemanag.firebase.FirestoreClass
 import com.example.projemanag.models.Board
 import com.example.projemanag.models.User
 import com.example.projemanag.utils.Constants
-import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.messaging.FirebaseMessaging
 
 class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedListener {
+
+    private lateinit var binding: ActivityMainBinding
 
 
     companion object {
@@ -41,12 +40,12 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         setUpActionBar()
 
-        val navView = findViewById<NavigationView>(R.id.nav_view)
-        navView.setNavigationItemSelectedListener(this)
+        binding.navView.setNavigationItemSelectedListener(this)
 
         mSharedPreferences =
             this.getSharedPreferences(Constants.PROJE_MANAG_PREFERENCES, Context.MODE_PRIVATE)
@@ -66,7 +65,7 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
 
         FirestoreClass().loadUserData(this, true)
 
-        val fabCreateBoard = findViewById<FloatingActionButton>(R.id.fab_create_board)
+        val fabCreateBoard = binding.includeAppBarMain.fabCreateBoard
         fabCreateBoard.setOnClickListener {
             val intent = Intent(this, CreateBoardActivity::class.java)
             intent.putExtra(Constants.NAME, mUserName)
@@ -77,8 +76,8 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
     }
 
     private fun setUpActionBar() {
-        val toolbarMainActivity = findViewById<Toolbar>(R.id.toolbar_main_activity)
-        setSupportActionBar(findViewById(R.id.toolbar_main_activity))
+        val toolbarMainActivity = binding.includeAppBarMain.toolbarMainActivity
+        setSupportActionBar(toolbarMainActivity)
         toolbarMainActivity.setNavigationIcon(R.drawable.ic_action_navigation_menu)
 
         toolbarMainActivity.setNavigationOnClickListener {
@@ -89,7 +88,7 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
     }
 
     private fun toggleDrawer() {
-        val drawerLayout = findViewById<DrawerLayout>(R.id.drawer_layout)
+        val drawerLayout = binding.drawerLayout
         if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
             drawerLayout.closeDrawer(GravityCompat.START)
         } else {
@@ -98,7 +97,7 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
     }
 
     override fun onBackPressed() {
-        val drawerLayout = findViewById<DrawerLayout>(R.id.drawer_layout)
+        val drawerLayout = binding.drawerLayout
         if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
             drawerLayout.closeDrawer(GravityCompat.START)
         } else {
@@ -118,7 +117,7 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
-        val drawerLayout = findViewById<DrawerLayout>(R.id.drawer_layout)
+        val drawerLayout = binding.drawerLayout
         when (item.itemId) {
             R.id.nav_my_profile -> {
                 startActivityForResult(
@@ -154,11 +153,10 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
             .placeholder(R.drawable.ic_user_place_holder) // A default place holder
             .into(findViewById(R.id.nav_user_image)) // the view in which the image will be loaded.
 
-
         findViewById<TextView>(R.id.tv_username).text = user.name
 
 
-        if (readBoardsList == true) {
+        if (readBoardsList) {
             showProgressDialog(resources.getString(R.string.please_wait))
             FirestoreClass().getBoardsList(this)
         }
@@ -169,10 +167,10 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
     fun populateBoardsListToUi(boardsList: ArrayList<Board>) {
         hideProgressDialog()
 
-        val rvBoardsList = findViewById<RecyclerView>(R.id.rv_boards_list)
+        val rvBoardsList = binding.includeAppBarMain.includeMainContent.rvBoardsList
         if (boardsList.size > 0) {
             rvBoardsList.visibility = View.VISIBLE
-            findViewById<TextView>(R.id.tv_no_boards_available).visibility = View.GONE
+            binding.includeAppBarMain.includeMainContent.tvNoBoardsAvailable.visibility = View.GONE
 
             rvBoardsList.layoutManager = LinearLayoutManager(this)
             rvBoardsList.setHasFixedSize(true)
@@ -191,7 +189,8 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
             })
         } else {
             rvBoardsList.visibility = View.GONE
-            findViewById<TextView>(R.id.tv_no_boards_available).visibility = View.VISIBLE
+            binding.includeAppBarMain.includeMainContent.tvNoBoardsAvailable.visibility =
+                View.VISIBLE
         }
     }
 
