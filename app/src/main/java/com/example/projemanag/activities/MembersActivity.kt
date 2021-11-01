@@ -143,7 +143,7 @@ class MembersActivity : BaseActivity() {
 
         anyChangesMade = true
 
-        setUpMembersList(mAssignedMembersList)
+        setUpMembersList(mAssignedMembersList.distinct() as ArrayList<User>)
 
         SendNotificationToUserAsyncTask(mBoardDetails.name, user.fcmToken).execute()
     }
