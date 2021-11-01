@@ -6,15 +6,12 @@ import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
-import android.widget.Button
-import android.widget.EditText
-import android.widget.ImageView
 import android.widget.Toast
-import androidx.appcompat.widget.Toolbar
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
 import com.example.projemanag.R
+import com.example.projemanag.databinding.ActivityMyProfileBinding
 import com.example.projemanag.firebase.FirestoreClass
 import com.example.projemanag.models.User
 import com.example.projemanag.utils.Constants
@@ -27,6 +24,8 @@ import java.io.IOException
 class MyProfileActivity : BaseActivity() {
 
 
+    private lateinit var binding: ActivityMyProfileBinding
+
     private var mSelectedImageFileUri: Uri? = null
     private var mProfileImageURL: String = ""
 
@@ -34,15 +33,15 @@ class MyProfileActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_my_profile)
+        binding = ActivityMyProfileBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         setUpActionBar()
 
         FirestoreClass().loadUserData(this)
 
-        val ivUserProfileImage: ImageView = findViewById(R.id.iv_user_profile_image)
 
-        ivUserProfileImage.setOnClickListener {
+        binding.ivUserProfileImage.setOnClickListener {
             if (ContextCompat.checkSelfPermission(
                     this,
                     android.Manifest.permission.READ_EXTERNAL_STORAGE
@@ -58,9 +57,8 @@ class MyProfileActivity : BaseActivity() {
             }
         }
 
-        val btnUpdate = findViewById<Button>(R.id.btn_update)
 
-        btnUpdate.setOnClickListener {
+        binding.btnUpdate.setOnClickListener {
             if (mSelectedImageFileUri != null) {
                 uploadUserImage()
             } else {
@@ -99,7 +97,7 @@ class MyProfileActivity : BaseActivity() {
             try {
                 Glide.with(this@MyProfileActivity).load(mSelectedImageFileUri).centerCrop()
                     .placeholder(R.drawable.ic_user_place_holder)
-                    .into(findViewById(R.id.iv_user_profile_image))
+                    .into(binding.ivUserProfileImage)
             } catch (e: IOException) {
                 e.printStackTrace()
             }
@@ -109,8 +107,8 @@ class MyProfileActivity : BaseActivity() {
 
 
     private fun setUpActionBar() {
-        val toolbarMyProfileActivity = findViewById<Toolbar>(R.id.toolbar_my_profile_activity)
-        setSupportActionBar(findViewById(R.id.toolbar_my_profile_activity))
+        val toolbarMyProfileActivity = binding.toolbarMyProfileActivity
+        setSupportActionBar(toolbarMyProfileActivity)
 
         val actionBar = supportActionBar
         if (actionBar != null) {
@@ -134,14 +132,14 @@ class MyProfileActivity : BaseActivity() {
 
         Glide.with(this@MyProfileActivity).load(user.image).centerCrop()
             .placeholder(R.drawable.ic_user_place_holder)
-            .into(findViewById(R.id.iv_user_profile_image))
+            .into(binding.ivUserProfileImage)
 
 
-        findViewById<EditText>(R.id.et_name).setText(user.name)
-        findViewById<EditText>(R.id.et_email).setText(user.email)
+        binding.etName.setText(user.name)
+        binding.etEmail.setText(user.email)
 
         if (user.mobile != 0L) {
-            findViewById<EditText>(R.id.et_mobile).setText(user.mobile.toString())
+            binding.etMobile.setText(user.mobile.toString())
 
         }
 
@@ -197,9 +195,8 @@ class MyProfileActivity : BaseActivity() {
         val userHashMap = HashMap<String, Any>()
         var anyChangesMde = false
 
-        val etName = findViewById<EditText>(R.id.et_name)
-        val etMobile = findViewById<EditText>(R.id.et_mobile)
-
+        val etName = binding.etName
+        val etMobile = binding.etMobile
 
 
         if (mProfileImageURL.isNotEmpty() && mProfileImageURL != mUserDetails.image) {
