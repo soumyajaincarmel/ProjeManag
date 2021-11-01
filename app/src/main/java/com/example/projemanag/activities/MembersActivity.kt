@@ -7,14 +7,12 @@ import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.EditText
-import android.widget.TextView
 import android.widget.Toast
-import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.projemanag.R
 import com.example.projemanag.adapters.MemberListItemsAdapter
+import com.example.projemanag.databinding.ActivityMembersBinding
+import com.example.projemanag.databinding.DialogSearchMemberBinding
 import com.example.projemanag.firebase.FirestoreClass
 import com.example.projemanag.models.Board
 import com.example.projemanag.models.User
@@ -30,6 +28,10 @@ import java.net.URL
 
 class MembersActivity : BaseActivity() {
 
+
+    private lateinit var binding: ActivityMembersBinding
+    private lateinit var dialogSearchMemberBinding: DialogSearchMemberBinding
+
     private lateinit var mBoardDetails: Board
     private lateinit var mAssignedMembersList: ArrayList<User>
 
@@ -37,10 +39,11 @@ class MembersActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_members)
+        binding = ActivityMembersBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         if (intent.hasExtra(Constants.BOARD_DETAIL)) {
-            mBoardDetails = intent.getParcelableExtra<Board>(Constants.BOARD_DETAIL)!!
+            mBoardDetails = intent.getParcelableExtra(Constants.BOARD_DETAIL)!!
 
             showProgressDialog(resources.getString(R.string.please_wait))
             FirestoreClass().getAssignedMembersListDetails(this, mBoardDetails.assignedTo)
@@ -51,8 +54,8 @@ class MembersActivity : BaseActivity() {
 
 
     private fun setUpActionBar() {
-        val toolbarMembersActivity = findViewById<Toolbar>(R.id.toolbar_members_activity)
-        setSupportActionBar(findViewById(R.id.toolbar_members_activity))
+        val toolbarMembersActivity = binding.toolbarMembersActivity
+        setSupportActionBar(toolbarMembersActivity)
 
         val actionBar = supportActionBar
         if (actionBar != null) {
@@ -72,12 +75,12 @@ class MembersActivity : BaseActivity() {
         mAssignedMembersList = list
         hideProgressDialog()
 
-        val rv_member_list = findViewById<RecyclerView>(R.id.rv_members_list)
-        rv_member_list.layoutManager = LinearLayoutManager(this)
-        rv_member_list.setHasFixedSize(true)
+        val rvMembersList = binding.rvMembersList
+        rvMembersList.layoutManager = LinearLayoutManager(this)
+        rvMembersList.setHasFixedSize(true)
 
         val adapter = MemberListItemsAdapter(this, list)
-        rv_member_list.adapter = adapter
+        rvMembersList.adapter = adapter
 
     }
 
@@ -103,9 +106,10 @@ class MembersActivity : BaseActivity() {
 
     private fun dialogSearchMember() {
         val dialog = Dialog(this)
-        dialog.setContentView(R.layout.dialog_search_member)
-        dialog.findViewById<TextView>(R.id.tv_add).setOnClickListener {
-            val email = dialog.findViewById<EditText>(R.id.et_email_search_member).text.toString()
+        dialogSearchMemberBinding = DialogSearchMemberBinding.inflate(layoutInflater)
+        dialog.setContentView(dialogSearchMemberBinding.root)
+        dialogSearchMemberBinding.tvAdd.setOnClickListener {
+            val email = dialogSearchMemberBinding.etEmailSearchMember.text.toString()
             if (email.isNotEmpty()) {
                 dialog.dismiss()
                 showProgressDialog(resources.getString(R.string.please_wait))
@@ -118,7 +122,7 @@ class MembersActivity : BaseActivity() {
                 ).show()
             }
         }
-        dialog.findViewById<TextView>(R.id.tv_cancel).setOnClickListener {
+        dialogSearchMemberBinding.tvCancel.setOnClickListener {
             dialog.dismiss()
         }
         dialog.show()
