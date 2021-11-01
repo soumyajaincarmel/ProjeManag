@@ -6,14 +6,12 @@ import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
-import android.widget.Button
-import android.widget.EditText
 import android.widget.Toast
-import androidx.appcompat.widget.Toolbar
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
 import com.example.projemanag.R
+import com.example.projemanag.databinding.ActivityCreateBoardBinding
 import com.example.projemanag.firebase.FirestoreClass
 import com.example.projemanag.models.Board
 import com.example.projemanag.utils.Constants
@@ -22,25 +20,27 @@ import com.google.firebase.storage.StorageReference
 import java.io.IOException
 
 class CreateBoardActivity : BaseActivity() {
+
+    private lateinit var binding: ActivityCreateBoardBinding
     private var mSelectedImageFileUri: Uri? = null
 
-    private lateinit var mUserName : String
+    private lateinit var mUserName: String
 
-    private var mBoardImageURL : String = ""
+    private var mBoardImageURL: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_create_board)
+        binding = ActivityCreateBoardBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         setUpActionBar()
 
-        if(intent.hasExtra(Constants.NAME))
-        {
+        if (intent.hasExtra(Constants.NAME)) {
             mUserName = intent.getStringExtra(Constants.NAME).toString()
         }
 
-        val ivBoardImage = findViewById<de.hdodenhof.circleimageview.CircleImageView>(R.id.iv_board_image)
-        ivBoardImage.setOnClickListener {
+
+        binding.ivBoardImage.setOnClickListener {
             if (ContextCompat.checkSelfPermission(
                     this,
                     android.Manifest.permission.READ_EXTERNAL_STORAGE
@@ -56,14 +56,11 @@ class CreateBoardActivity : BaseActivity() {
             }
         }
 
-        val btnCreate = findViewById<Button>(R.id.btn_create)
-        btnCreate.setOnClickListener {
-            if(mSelectedImageFileUri != null)
-            {
+
+        binding.btnCreate.setOnClickListener {
+            if (mSelectedImageFileUri != null) {
                 uploadBoardImage()
-            }
-            else
-            {
+            } else {
                 showProgressDialog(resources.getString(R.string.please_wait))
                 createBoard()
             }
@@ -72,16 +69,15 @@ class CreateBoardActivity : BaseActivity() {
 
     }
 
-    fun boardCreatedSuccessfully()
-    {
-      hideProgressDialog()
+    fun boardCreatedSuccessfully() {
+        hideProgressDialog()
         setResult(Activity.RESULT_OK)
         finish()
     }
 
     private fun setUpActionBar() {
-        val toolbarCreateBoardActivity = findViewById<Toolbar>(R.id.toolbar_create_board_activity)
-        setSupportActionBar(findViewById(R.id.toolbar_create_board_activity))
+        val toolbarCreateBoardActivity = binding.toolbarCreateBoardActivity
+        setSupportActionBar(toolbarCreateBoardActivity)
 
         val actionBar = supportActionBar
         if (actionBar != null) {
@@ -126,7 +122,7 @@ class CreateBoardActivity : BaseActivity() {
             try {
                 Glide.with(this).load(mSelectedImageFileUri).centerCrop()
                     .placeholder(R.drawable.ic_board_place_holder)
-                    .into(findViewById(R.id.iv_board_image))
+                    .into(binding.ivBoardImage)
             } catch (e: IOException) {
                 e.printStackTrace()
             }
@@ -134,24 +130,22 @@ class CreateBoardActivity : BaseActivity() {
         }
     }
 
-    private fun createBoard()
-    {
-        val etBoardName = findViewById<EditText>(R.id.et_board_name)
-        val assignedUsersArrayList : ArrayList<String> = ArrayList()
+    private fun createBoard() {
+        val etBoardName = binding.etBoardName
+        val assignedUsersArrayList: ArrayList<String> = ArrayList()
         assignedUsersArrayList.add(getCurrentUserID())
 
         var board = Board(
-        etBoardName.text.toString(),
-        mBoardImageURL,
-        mUserName,
-        assignedUsersArrayList
+            etBoardName.text.toString(),
+            mBoardImageURL,
+            mUserName,
+            assignedUsersArrayList
         )
 
         FirestoreClass().createBoard(this, board)
     }
 
-    private fun uploadBoardImage()
-    {
+    private fun uploadBoardImage() {
         showProgressDialog(resources.getString(R.string.please_wait))
 
         val sRef: StorageReference = FirebaseStorage.getInstance().reference.child(
