@@ -5,15 +5,17 @@ import android.graphics.Typeface
 import android.os.Bundle
 import android.os.Handler
 import android.view.WindowManager
-import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import com.example.projemanag.R
+import com.example.projemanag.databinding.ActivitySplashBinding
 import com.example.projemanag.firebase.FirestoreClass
 
 class SplashActivity : AppCompatActivity() {
+
+    private lateinit var binding: ActivitySplashBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_splash)
+        binding = ActivitySplashBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
 
         window.setFlags(
@@ -22,7 +24,7 @@ class SplashActivity : AppCompatActivity() {
         )
 
         val typeFace: Typeface = Typeface.createFromAsset(assets, "carbon bl.ttf")
-        val tvSplashAppName = findViewById<TextView>(R.id.tv_splash_app_name)
+        val tvSplashAppName = binding.tvSplashAppName
         tvSplashAppName.typeface = typeFace
 
 

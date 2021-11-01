@@ -7,9 +7,9 @@ import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.projemanag.R
 import com.example.projemanag.adapters.TaskListItemsAdapter
+import com.example.projemanag.databinding.ActivityTaskListBinding
 import com.example.projemanag.firebase.FirestoreClass
 import com.example.projemanag.models.Board
 import com.example.projemanag.models.Card
@@ -18,6 +18,8 @@ import com.example.projemanag.models.User
 import com.example.projemanag.utils.Constants
 
 class TaskListActivity : BaseActivity() {
+
+    private lateinit var binding: ActivityTaskListBinding
 
     // A global variable for Board Details.
     private lateinit var mBoardDetails: Board
@@ -28,7 +30,8 @@ class TaskListActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_task_list)
+        binding = ActivityTaskListBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         if (intent.hasExtra(Constants.DOCUMENT_ID)) {
             mBoardDocumentId = intent.getStringExtra(Constants.DOCUMENT_ID)!!
@@ -57,10 +60,10 @@ class TaskListActivity : BaseActivity() {
      */
     private fun setupActionBar() {
 
-        val toolbar_task_list_activity =
-            findViewById<androidx.appcompat.widget.Toolbar>(R.id.toolbar_task_list_activity)
+        val toolbarTaskListActivity =
+            binding.toolbarTaskListActivity
 
-        setSupportActionBar(toolbar_task_list_activity)
+        setSupportActionBar(toolbarTaskListActivity)
 
         val actionBar = supportActionBar
         if (actionBar != null) {
@@ -69,7 +72,7 @@ class TaskListActivity : BaseActivity() {
             actionBar.title = mBoardDetails.name
         }
 
-        toolbar_task_list_activity.setNavigationOnClickListener { onBackPressed() }
+        toolbarTaskListActivity.setNavigationOnClickListener { onBackPressed() }
     }
 
     /**
@@ -198,15 +201,15 @@ class TaskListActivity : BaseActivity() {
         val addTaskList = Task(resources.getString(R.string.add_list))
         mBoardDetails.taskList.add(addTaskList)
 
-        val rv_task_list = findViewById<RecyclerView>(R.id.rv_task_list)
+        val rvTaskList = binding.rvTaskList
 
-        rv_task_list.layoutManager =
+        rvTaskList.layoutManager =
             LinearLayoutManager(this@TaskListActivity, LinearLayoutManager.HORIZONTAL, false)
-        rv_task_list.setHasFixedSize(true)
+        rvTaskList.setHasFixedSize(true)
 
         // Create an instance of TaskListItemsAdapter and pass the task list to it.
         val adapter = TaskListItemsAdapter(this@TaskListActivity, mBoardDetails.taskList)
-        rv_task_list.adapter = adapter // Attach the adapter to the recyclerView.
+        rvTaskList.adapter = adapter // Attach the adapter to the recyclerView.
     }
 
     fun updateCardsInTaskList(taskListPosition: Int, cards: ArrayList<Card>) {
