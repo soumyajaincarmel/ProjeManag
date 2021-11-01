@@ -3,20 +3,22 @@ package com.example.projemanag.activities
 import android.os.Bundle
 import android.text.TextUtils
 import android.view.WindowManager
-import android.widget.Button
-import android.widget.EditText
 import android.widget.Toast
-import androidx.appcompat.widget.Toolbar
 import com.example.projemanag.R
+import com.example.projemanag.databinding.ActivitySignUpBinding
 import com.example.projemanag.firebase.FirestoreClass
 import com.example.projemanag.models.User
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 
 class SignUpActivity : BaseActivity() {
+
+    private lateinit var binding: ActivitySignUpBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_sign_up)
+        binding = ActivitySignUpBinding.inflate(layoutInflater)
+        setContentView(binding.root)
         window.setFlags(
             WindowManager.LayoutParams.FLAG_FULLSCREEN,
             WindowManager.LayoutParams.FLAG_FULLSCREEN
@@ -24,15 +26,14 @@ class SignUpActivity : BaseActivity() {
 
         setUpActionBar()
 
-        val btnSignUp = findViewById<Button>(R.id.btn_sign_up)
-        btnSignUp.setOnClickListener {
+        binding.btnSignUp.setOnClickListener {
             registerUser()
         }
 
     }
 
     private fun setUpActionBar() {
-        val toolbarSignUpActivity = findViewById<Toolbar>(R.id.toolbar_sign_up_activity)
+        val toolbarSignUpActivity = binding.toolbarSignUpActivity
         setSupportActionBar(toolbarSignUpActivity)
 
         val actionBar = supportActionBar
@@ -47,9 +48,9 @@ class SignUpActivity : BaseActivity() {
     }
 
     private fun registerUser() {
-        val etName = findViewById<EditText>(R.id.et_name)
-        val etEmail = findViewById<EditText>(R.id.et_email_sign_in)
-        val etPassword = findViewById<EditText>(R.id.et_password_sign_in)
+        val etName = binding.etName
+        val etEmail = binding.etEmailSignIn
+        val etPassword = binding.etPasswordSignIn
 
 
         val name: String = etName.text.toString().trim { it <= ' ' }

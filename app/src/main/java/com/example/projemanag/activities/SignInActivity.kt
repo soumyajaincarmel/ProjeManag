@@ -4,11 +4,9 @@ import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils
 import android.view.WindowManager
-import android.widget.Button
-import android.widget.EditText
 import android.widget.Toast
-import androidx.appcompat.widget.Toolbar
 import com.example.projemanag.R
+import com.example.projemanag.databinding.ActivitySignInBinding
 import com.example.projemanag.firebase.FirestoreClass
 import com.example.projemanag.models.User
 import com.google.firebase.auth.FirebaseAuth
@@ -16,12 +14,14 @@ import com.google.firebase.auth.FirebaseAuth
 class SignInActivity : BaseActivity() {
 
 
-    private lateinit var auth: FirebaseAuth
+    private lateinit var binding: ActivitySignInBinding
 
+    private lateinit var auth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_sign_in)
+        binding = ActivitySignInBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         auth = FirebaseAuth.getInstance()
 
@@ -33,15 +33,14 @@ class SignInActivity : BaseActivity() {
         setUpActionBar()
 
 
-        val btnSignIn = findViewById<Button>(R.id.btn_sign_in)
-        btnSignIn.setOnClickListener {
+        binding.btnSignIn.setOnClickListener {
             signInRegisteredUser()
         }
 
     }
 
     private fun setUpActionBar() {
-        val toolbarSignInActivity = findViewById<Toolbar>(R.id.toolbar_sign_in_activity)
+        val toolbarSignInActivity = binding.toolbarSignInActivity
         setSupportActionBar(toolbarSignInActivity)
 
         val actionBar = supportActionBar
@@ -57,8 +56,8 @@ class SignInActivity : BaseActivity() {
 
 
     private fun signInRegisteredUser() {
-        val etEmail = findViewById<EditText>(R.id.et_email_sign_in)
-        val etPassword = findViewById<EditText>(R.id.et_password_sign_in)
+        val etEmail = binding.etEmailSignIn
+        val etPassword = binding.etPasswordSignIn
 
         // Here we get the text from editText and trim the space
         val email: String = etEmail.text.toString().trim { it <= ' ' }
@@ -104,8 +103,7 @@ class SignInActivity : BaseActivity() {
         }
     }
 
-    fun signInSuccess(user : User)
-    {
+    fun signInSuccess(user: User) {
         hideProgressDialog()
         startActivity(Intent(this, MainActivity::class.java))
         finish()
