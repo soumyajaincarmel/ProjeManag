@@ -8,15 +8,11 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.widget.Button
-import android.widget.EditText
-import android.widget.TextView
 import android.widget.Toast
-import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.projemanag.R
 import com.example.projemanag.adapters.CardMemberListItemsAdapter
+import com.example.projemanag.databinding.ActivityCardDetailsBinding
 import com.example.projemanag.dialogs.LabelColorListDialog
 import com.example.projemanag.firebase.FirestoreClass
 import com.example.projemanag.models.*
@@ -27,6 +23,8 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 class CardDetailsActivity : BaseActivity() {
+
+    private lateinit var binding: ActivityCardDetailsBinding
 
     private lateinit var mBoardDetails: Board
 
@@ -41,27 +39,28 @@ class CardDetailsActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_card_details)
+        binding = ActivityCardDetailsBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
 
         getIntentData()
         setUpActionBar()
 
-        val et_name_card_details = findViewById<EditText>(R.id.et_name_card_details)
-        et_name_card_details.setText(mBoardDetails.taskList[mTaskListPosition].cards[mCardListPosition].name)
-        et_name_card_details.setSelection(et_name_card_details.text.toString().length) // The cursor after the string length
+        val etNameCardDetails = binding.etNameCardDetails
+        etNameCardDetails.setText(mBoardDetails.taskList[mTaskListPosition].cards[mCardListPosition].name)
+        etNameCardDetails.setSelection(etNameCardDetails.text.toString().length) // The cursor after the string length
 
-        val btn_update_card_details = findViewById<Button>(R.id.btn_update_card_details)
-        btn_update_card_details.setOnClickListener {
-            if (et_name_card_details.text.toString().isNotEmpty()) {
+        val btnUpdateCardDetails = binding.btnUpdateCardDetails
+        btnUpdateCardDetails.setOnClickListener {
+            if (etNameCardDetails.text.toString().isNotEmpty()) {
                 updateCardDetails()
             } else {
                 Toast.makeText(this, "Please Enter a Card Name", Toast.LENGTH_SHORT).show()
             }
         }
 
-        val tv_select_label_color = findViewById<TextView>(R.id.tv_select_label_color)
-        tv_select_label_color.setOnClickListener {
+        val tvSelectLabelColor = binding.tvSelectLabelColor
+        tvSelectLabelColor.setOnClickListener {
             showLabelColorsListDialog()
         }
 
@@ -71,8 +70,8 @@ class CardDetailsActivity : BaseActivity() {
             setColor()
         }
 
-        val tv_select_members = findViewById<TextView>(R.id.tv_select_members)
-        tv_select_members.setOnClickListener {
+        val tvSelectMembers = binding.tvSelectMembers
+        tvSelectMembers.setOnClickListener {
             membersListDialog()
         }
 
@@ -85,13 +84,12 @@ class CardDetailsActivity : BaseActivity() {
             val simpleDateFormat = SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH)
             val selectedDate = simpleDateFormat.format(Date(mSelectedDueDateMilliSeconds))
 
-            val tv_select_due_date = findViewById<TextView>(R.id.tv_select_due_date)
-            tv_select_due_date.text = selectedDate
+
+            binding.tvSelectDueDate.text = selectedDate
 
         }
 
-        val tv_select_due_date = findViewById<TextView>(R.id.tv_select_due_date)
-        tv_select_due_date.setOnClickListener {
+        binding.tvSelectDueDate.setOnClickListener {
             showDatePicker()
         }
 
@@ -100,8 +98,8 @@ class CardDetailsActivity : BaseActivity() {
 
 
     private fun setUpActionBar() {
-        val toolbarCardDetailsActivity = findViewById<Toolbar>(R.id.toolbar_card_details_activity)
-        setSupportActionBar(findViewById(R.id.toolbar_card_details_activity))
+        val toolbarCardDetailsActivity = binding.toolbarCardDetailsActivity
+        setSupportActionBar(toolbarCardDetailsActivity)
 
         val actionBar = supportActionBar
         if (actionBar != null) {
@@ -259,14 +257,13 @@ class CardDetailsActivity : BaseActivity() {
 
         if (selectedMembersList.size > 0) {
             selectedMembersList.add(SelectedMembers("", ""))
-            val tv_select_members = findViewById<TextView>(R.id.tv_select_members)
-            tv_select_members.visibility = View.GONE
-            val rv_selected_members_list = findViewById<RecyclerView>(R.id.rv_selected_members_list)
-            rv_selected_members_list.visibility = View.VISIBLE
+            binding.tvSelectMembers.visibility = View.GONE
+            val rvSelectedMembersList = binding.rvSelectedMembersList
+            rvSelectedMembersList.visibility = View.VISIBLE
 
-            rv_selected_members_list.layoutManager = GridLayoutManager(this, 6)
+            rvSelectedMembersList.layoutManager = GridLayoutManager(this, 6)
             val adapter = CardMemberListItemsAdapter(this, selectedMembersList, true)
-            rv_selected_members_list.adapter = adapter
+            rvSelectedMembersList.adapter = adapter
             adapter.setOnClickListener(
                 object : CardMemberListItemsAdapter.OnClickListener {
                     override fun onClick() {
@@ -276,16 +273,14 @@ class CardDetailsActivity : BaseActivity() {
                 }
             )
         } else {
-            val tv_select_members = findViewById<TextView>(R.id.tv_select_members)
-            tv_select_members.visibility = View.VISIBLE
 
-            val rv_selected_members_list = findViewById<RecyclerView>(R.id.rv_selected_members_list)
-            rv_selected_members_list.visibility = View.GONE
+            binding.tvSelectMembers.visibility = View.VISIBLE
+            binding.rvSelectedMembersList.visibility = View.GONE
         }
     }
 
     private fun updateCardDetails() {
-        val etNameCardDetails = findViewById<EditText>(R.id.et_name_card_details)
+        val etNameCardDetails = binding.etNameCardDetails
         val card = Card(
             etNameCardDetails.text.toString(),
             mBoardDetails.taskList[mTaskListPosition].cards[mCardListPosition].createdBy,
@@ -332,8 +327,8 @@ class CardDetailsActivity : BaseActivity() {
     }
 
     private fun setColor() {
-        findViewById<TextView>(R.id.tv_select_label_color).text = ""
-        findViewById<TextView>(R.id.tv_select_label_color).setBackgroundColor(
+        binding.tvSelectLabelColor.text = ""
+        binding.tvSelectLabelColor.setBackgroundColor(
             Color.parseColor(
                 mSelectedColor
             )
@@ -394,7 +389,7 @@ class CardDetailsActivity : BaseActivity() {
 
                 val selectedDate = "$sDayOfMonth/$sMonthOfYear/$year"
                 // Selected date it set to the TextView to make it visible to user.
-                findViewById<TextView>(R.id.tv_select_due_date).text = selectedDate
+                binding.tvSelectDueDate.text = selectedDate
 
                 /**
                  * Here we have taken an instance of Date Formatter as it will format our
