@@ -3,11 +3,12 @@ package com.example.projemanag.activities
 import android.app.Dialog
 import android.os.Bundle
 import android.os.Handler
-import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.example.projemanag.R
+import com.example.projemanag.databinding.ActivityBaseBinding
+import com.example.projemanag.databinding.DialogProgressBinding
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 
@@ -15,23 +16,25 @@ open class BaseActivity : AppCompatActivity() {
 
     private var doubleBackToExitPressedOnce = false
 
-    private lateinit var mProgressDialog : Dialog
+    private lateinit var mProgressDialog: Dialog
+    private lateinit var progressDialogBinding: DialogProgressBinding
+
+    private lateinit var binding: ActivityBaseBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_base)
+        binding = ActivityBaseBinding.inflate(layoutInflater)
+        setContentView(binding.root)
     }
 
     fun showProgressDialog(text: String) {
         mProgressDialog = Dialog(this)
-
+        progressDialogBinding = DialogProgressBinding.inflate(layoutInflater)
         /*Set the screen content from a layout resource.
         The resource will be inflated, adding all top-level views to the screen.*/
-        mProgressDialog.setContentView(R.layout.dialog_progress)
+        mProgressDialog.setContentView(progressDialogBinding.root)
 
-
-        mProgressDialog.findViewById<TextView>(R.id.tv_progress_text).text = text
-
+        progressDialogBinding.tvProgressText.text = text
         //Start the dialog and display it on screen.
         mProgressDialog.show()
     }
