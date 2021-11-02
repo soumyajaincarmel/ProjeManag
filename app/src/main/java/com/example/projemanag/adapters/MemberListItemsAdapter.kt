@@ -4,11 +4,10 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.projemanag.R
+import com.example.projemanag.databinding.ItemMemberBinding
 import com.example.projemanag.models.User
 import com.example.projemanag.utils.Constants
 
@@ -27,11 +26,7 @@ open class MemberListItemsAdapter(
      */
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return MyViewHolder(
-            LayoutInflater.from(context).inflate(
-                R.layout.item_member,
-                parent,
-                false
-            )
+            ItemMemberBinding.inflate(LayoutInflater.from(context), parent, false)
         )
     }
 
@@ -48,36 +43,31 @@ open class MemberListItemsAdapter(
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val model = list[position]
 
-        if (holder is MyViewHolder) {
+        (holder as MyViewHolder).binding.apply {
 
             Glide
                 .with(context)
                 .load(model.image)
                 .centerCrop()
                 .placeholder(R.drawable.ic_user_place_holder)
-                .into(holder.itemView.findViewById<ImageView>(R.id.iv_member_image))
+                .into(ivMemberImage)
 
-            holder.itemView.findViewById<TextView>(R.id.tv_member_name).text = model.name
-            holder.itemView.findViewById<TextView>(R.id.tv_member_email).text = model.email
+            tvMemberName.text = model.name
+            tvMemberEmail.text = model.email
 
-            if(model.selected)
-            {
-                holder.itemView.findViewById<ImageView>(R.id.iv_selected_member).visibility = View.VISIBLE
-            }
-            else
-            {
-                holder.itemView.findViewById<ImageView>(R.id.iv_selected_member).visibility = View.GONE
+            if (model.selected) {
+                ivSelectedMember.visibility =
+                    View.VISIBLE
+            } else {
+                ivSelectedMember.visibility =
+                    View.GONE
             }
 
             holder.itemView.setOnClickListener {
-                if(onClickListener!=null)
-                {
-                    if(model.selected)
-                    {
+                if (onClickListener != null) {
+                    if (model.selected) {
                         onClickListener!!.onClick(position, model, Constants.UN_SELECT)
-                    }
-                    else
-                    {
+                    } else {
                         onClickListener!!.onClick(position, model, Constants.SELECT)
                     }
                 }
@@ -92,17 +82,17 @@ open class MemberListItemsAdapter(
         return list.size
     }
 
-    /**
-     * A ViewHolder describes an item view and metadata about its place within the RecyclerView.
-     */
-    class MyViewHolder(view: View) : RecyclerView.ViewHolder(view)
 
-    interface OnClickListener{
+    interface OnClickListener {
         fun onClick(position: Int, user: User, action: String)
     }
 
-    fun setOnClickListener(onClickListener: OnClickListener)
-    {
+    fun setOnClickListener(onClickListener: OnClickListener) {
         this.onClickListener = onClickListener
     }
+
+    /**
+     * A ViewHolder describes an item view and metadata about its place within the RecyclerView.
+     */
+    class MyViewHolder(val binding: ItemMemberBinding) : RecyclerView.ViewHolder(binding.root)
 }
