@@ -2,12 +2,11 @@ package com.example.projemanag.adapters
 
 import android.content.Context
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.projemanag.R
+import com.example.projemanag.databinding.ItemBoardBinding
 import com.example.projemanag.models.Board
 
 open class BoardsItemAdapter(
@@ -15,29 +14,30 @@ open class BoardsItemAdapter(
     private val list: ArrayList<Board>
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    private var onClickListener : OnClickListener? = null
+    private var onClickListener: OnClickListener? = null
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        return MyViewHolder(LayoutInflater.from(context).inflate(R.layout.item_board, parent, false))
+        return MyViewHolder(
+            ItemBoardBinding.inflate(LayoutInflater.from(context), parent, false)
+        )
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val model = list[position]
-        if(holder is MyViewHolder)
-        {
+        (holder as MyViewHolder).binding.apply {
             Glide.with(context)
                 .load(model.image)
                 .centerCrop()
                 .placeholder(R.drawable.ic_board_place_holder)
-                .into(holder.itemView.findViewById(R.id.iv_board_image))
+                .into(ivBoardImage)
 
 
-            holder.itemView.findViewById<TextView>(R.id.tv_name).text = model.name
-            holder.itemView.findViewById<TextView>(R.id.tv_created_by).text = "Created by : ${model.createdBy}"
+            tvName.text = model.name
+            tvCreatedBy.text =
+                "Created by : ${model.createdBy}"
 
             holder.itemView.setOnClickListener {
 
-                if(onClickListener != null)
-                {
+                if (onClickListener != null) {
                     onClickListener!!.onClick(position, model)
                 }
 
@@ -45,12 +45,11 @@ open class BoardsItemAdapter(
         }
     }
 
-    interface OnClickListener{
-        fun onClick(position : Int, model : Board)
+    interface OnClickListener {
+        fun onClick(position: Int, model: Board)
     }
 
-    fun setOnClickListener(onClickListener : OnClickListener)
-    {
+    fun setOnClickListener(onClickListener: OnClickListener) {
         this.onClickListener = onClickListener
     }
 
@@ -58,5 +57,6 @@ open class BoardsItemAdapter(
         return list.size
     }
 
-    private class MyViewHolder(view : View) : RecyclerView.ViewHolder(view)
+    private class MyViewHolder(val binding: ItemBoardBinding) :
+        RecyclerView.ViewHolder(binding.root)
 }
