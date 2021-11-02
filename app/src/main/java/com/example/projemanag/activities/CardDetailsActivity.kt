@@ -14,10 +14,10 @@ import com.example.projemanag.R
 import com.example.projemanag.adapters.CardMemberListItemsAdapter
 import com.example.projemanag.databinding.ActivityCardDetailsBinding
 import com.example.projemanag.dialogs.LabelColorListDialog
+import com.example.projemanag.dialogs.MembersListDialog
 import com.example.projemanag.firebase.FirestoreClass
 import com.example.projemanag.models.*
 import com.example.projemanag.utils.Constants
-import com.projemanag.dialogs.MembersListDialog
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
