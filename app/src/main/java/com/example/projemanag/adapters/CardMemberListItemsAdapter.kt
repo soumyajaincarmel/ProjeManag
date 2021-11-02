@@ -4,16 +4,16 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.projemanag.R
+import com.example.projemanag.databinding.ItemCardSelectedMemberBinding
 import com.example.projemanag.models.SelectedMembers
 
 open class CardMemberListItemsAdapter(
     private val context: Context,
     private var list: ArrayList<SelectedMembers>,
-    private var assignMembers : Boolean
+    private var assignMembers: Boolean
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private var onClickListener: OnClickListener? = null
@@ -26,11 +26,7 @@ open class CardMemberListItemsAdapter(
      */
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return MyViewHolder(
-            LayoutInflater.from(context).inflate(
-                R.layout.item_card_selected_member,
-                parent,
-                false
-            )
+            ItemCardSelectedMemberBinding.inflate(LayoutInflater.from(context), parent, false)
         )
     }
 
@@ -47,21 +43,24 @@ open class CardMemberListItemsAdapter(
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val model = list[position]
 
-        if (holder is MyViewHolder) {
+        (holder as MyViewHolder).binding.apply {
 
             if (position == list.size - 1 && assignMembers) {
-                holder.itemView.findViewById<ImageView>(R.id.iv_add_member).visibility = View.VISIBLE
-                holder.itemView.findViewById<ImageView>(R.id.iv_selected_member_image).visibility = View.GONE
+                ivAddMember.visibility =
+                    View.VISIBLE
+                ivSelectedMemberImage.visibility =
+                    View.GONE
             } else {
-                holder.itemView.findViewById<ImageView>(R.id.iv_add_member).visibility = View.GONE
-                holder.itemView.findViewById<ImageView>(R.id.iv_selected_member_image).visibility = View.VISIBLE
+                ivAddMember.visibility = View.GONE
+                ivSelectedMemberImage.visibility =
+                    View.VISIBLE
 
                 Glide
                     .with(context)
                     .load(model.image)
                     .centerCrop()
                     .placeholder(R.drawable.ic_user_place_holder)
-                    .into(holder.itemView.findViewById<ImageView>(R.id.iv_selected_member_image))
+                    .into(ivSelectedMemberImage)
             }
 
             holder.itemView.setOnClickListener {
@@ -96,5 +95,6 @@ open class CardMemberListItemsAdapter(
     /**
      * A ViewHolder describes an item view and metadata about its place within the RecyclerView.
      */
-    class MyViewHolder(view: View) : RecyclerView.ViewHolder(view)
+    class MyViewHolder(val binding: ItemCardSelectedMemberBinding) :
+        RecyclerView.ViewHolder(binding.root)
 }

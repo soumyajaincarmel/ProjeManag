@@ -5,9 +5,8 @@ import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.projemanag.R
+import com.example.projemanag.databinding.ItemLabelColourBinding
 
 class LabelColorListItemsAdapter(
     private val context: Context,
@@ -19,25 +18,24 @@ class LabelColorListItemsAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return MyViewHolder(
-            LayoutInflater.from(context).inflate(
-                R.layout.item_label_colour,
-                parent,
-                false
-            )
+            ItemLabelColourBinding.inflate(LayoutInflater.from(context), parent, false)
         )
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val item = list[position]
 
-        if (holder is MyViewHolder) {
+        (holder as MyViewHolder).binding.apply {
 
-            holder.itemView.findViewById<View>(R.id.view_main).setBackgroundColor(Color.parseColor(item))
+            viewMain
+                .setBackgroundColor(Color.parseColor(item))
 
             if (item == mSelectedColor) {
-                holder.itemView.findViewById<ImageView>(R.id.iv_selected_color).visibility = View.VISIBLE
+                ivSelectedColor.visibility =
+                    View.VISIBLE
             } else {
-                holder.itemView.findViewById<ImageView>(R.id.iv_selected_color).visibility = View.GONE
+                ivSelectedColor.visibility =
+                    View.GONE
             }
 
             holder.itemView.setOnClickListener {
@@ -53,10 +51,11 @@ class LabelColorListItemsAdapter(
         return list.size
     }
 
-    private class MyViewHolder(view: View) : RecyclerView.ViewHolder(view)
-
     interface OnItemClickListener {
-
         fun onClick(position: Int, color: String)
     }
+
+
+    private class MyViewHolder(val binding: ItemLabelColourBinding) :
+        RecyclerView.ViewHolder(binding.root)
 }
