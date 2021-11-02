@@ -133,7 +133,7 @@ open class CardListItemsAdapter(
      * An interface for onclick items.
      */
     interface OnClickListener {
-        fun onClick(position: Int)
+        fun onClick(cardPosition: Int)
     }
 
     /**

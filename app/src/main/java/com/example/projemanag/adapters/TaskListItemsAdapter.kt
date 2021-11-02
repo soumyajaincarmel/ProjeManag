@@ -7,14 +7,14 @@ import android.content.res.Resources
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.*
-import androidx.cardview.widget.CardView
+import android.widget.LinearLayout
+import android.widget.Toast
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.projemanag.R
 import com.example.projemanag.activities.TaskListActivity
+import com.example.projemanag.databinding.ItemTaskBinding
 import com.example.projemanag.models.Task
 import java.util.*
 
@@ -34,7 +34,7 @@ open class TaskListItemsAdapter(
      */
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
 
-        val view = LayoutInflater.from(context).inflate(R.layout.item_task, parent, false)
+        val binding = ItemTaskBinding.inflate(LayoutInflater.from(context), parent, false)
         // Here the layout params are converted dynamically according to the screen size as width is 70% and height is wrap_content.
         val layoutParams = LinearLayout.LayoutParams(
             (parent.width * 0.7).toInt(),
@@ -42,9 +42,9 @@ open class TaskListItemsAdapter(
         )
         // Here the dynamic margins are applied to the view.
         layoutParams.setMargins((15.toDp()).toPx(), 0, (40.toDp()).toPx(), 0)
-        view.layoutParams = layoutParams
+        binding.root.layoutParams = layoutParams
 
-        return MyViewHolder(view)
+        return MyViewHolder(binding)
     }
 
     /**
@@ -63,40 +63,40 @@ open class TaskListItemsAdapter(
     ) {
         val model = list[position]
 
-        if (holder is MyViewHolder) {
+        (holder as MyViewHolder).binding.apply {
 
             if (position == list.size - 1) {
-                holder.itemView.findViewById<TextView>(R.id.tv_add_task_list).visibility =
+                tvAddTaskList.visibility =
                     View.VISIBLE
-                holder.itemView.findViewById<LinearLayout>(R.id.ll_task_item).visibility = View.GONE
+                llTaskItem.visibility = View.GONE
             } else {
-                holder.itemView.findViewById<TextView>(R.id.tv_add_task_list).visibility = View.GONE
-                holder.itemView.findViewById<LinearLayout>(R.id.ll_task_item).visibility =
+                tvAddTaskList.visibility = View.GONE
+                llTaskItem.visibility =
                     View.VISIBLE
             }
 
 
 
-            holder.itemView.findViewById<TextView>(R.id.tv_task_list_title).text = model.title
+            tvTaskListTitle.text = model.title
 
-            holder.itemView.findViewById<TextView>(R.id.tv_add_task_list).setOnClickListener {
+            tvAddTaskList.setOnClickListener {
 
-                holder.itemView.findViewById<TextView>(R.id.tv_add_task_list).visibility = View.GONE
-                holder.itemView.findViewById<CardView>(R.id.cv_add_task_list_name).visibility =
+                tvAddTaskList.visibility = View.GONE
+                cvAddTaskListName.visibility =
                     View.VISIBLE
             }
 
 
-            holder.itemView.findViewById<ImageButton>(R.id.ib_close_list_name).setOnClickListener {
-                holder.itemView.findViewById<TextView>(R.id.tv_add_task_list).visibility =
+            ibCloseListName.setOnClickListener {
+                tvAddTaskList.visibility =
                     View.VISIBLE
-                holder.itemView.findViewById<CardView>(R.id.cv_add_task_list_name).visibility =
+                cvAddTaskListName.visibility =
                     View.GONE
             }
 
-            holder.itemView.findViewById<ImageButton>(R.id.ib_done_list_name).setOnClickListener {
+            ibDoneListName.setOnClickListener {
                 val listName =
-                    holder.itemView.findViewById<EditText>(R.id.et_task_list_name).text.toString()
+                    etTaskListName.text.toString()
 
                 if (listName.isNotEmpty()) {
                     // Here we check the context is an instance of the TaskListActivity.
@@ -108,27 +108,27 @@ open class TaskListItemsAdapter(
                 }
             }
 
-            holder.itemView.findViewById<ImageButton>(R.id.ib_edit_list_name).setOnClickListener {
-                holder.itemView.findViewById<EditText>(R.id.et_edit_task_list_name)
+            ibEditListName.setOnClickListener {
+                etEditTaskListName
                     .setText(model.title)
-                holder.itemView.findViewById<LinearLayout>(R.id.ll_title_view).visibility =
+                llTitleView.visibility =
                     View.GONE
-                holder.itemView.findViewById<CardView>(R.id.cv_edit_task_list_name).visibility =
+                cvEditTaskListName.visibility =
                     View.VISIBLE
             }
 
-            holder.itemView.findViewById<ImageButton>(R.id.ib_close_editable_view)
+            ibCloseEditableView
                 .setOnClickListener {
-                    holder.itemView.findViewById<LinearLayout>(R.id.ll_title_view).visibility =
+                    llTitleView.visibility =
                         View.VISIBLE
-                    holder.itemView.findViewById<CardView>(R.id.cv_edit_task_list_name).visibility =
+                    cvEditTaskListName.visibility =
                         View.GONE
                 }
 
-            holder.itemView.findViewById<ImageButton>(R.id.ib_done_edit_list_name)
+            ibDoneEditListName
                 .setOnClickListener {
                     val listName =
-                        holder.itemView.findViewById<EditText>(R.id.et_edit_task_list_name).text.toString()
+                        etEditTaskListName.text.toString()
 
                     if (listName.isNotEmpty()) {
                         // Here we check the context is an instance of the TaskListActivity.
@@ -143,25 +143,25 @@ open class TaskListItemsAdapter(
                 }
 
 
-            holder.itemView.findViewById<ImageButton>(R.id.ib_delete_list).setOnClickListener {
+            ibDeleteList.setOnClickListener {
                 alertDialogForDeleteList(position, model.title)
             }
 
-            holder.itemView.findViewById<TextView>(R.id.tv_add_card).setOnClickListener {
-                holder.itemView.findViewById<TextView>(R.id.tv_add_card).visibility = View.GONE
-                holder.itemView.findViewById<CardView>(R.id.cv_add_card).visibility = View.VISIBLE
+            tvAddCard.setOnClickListener {
+                tvAddCard.visibility = View.GONE
+                cvAddCard.visibility = View.VISIBLE
             }
 
-            holder.itemView.findViewById<ImageButton>(R.id.ib_close_card_name).setOnClickListener {
-                holder.itemView.findViewById<TextView>(R.id.tv_add_card).visibility = View.VISIBLE
-                holder.itemView.findViewById<CardView>(R.id.cv_add_card).visibility = View.GONE
+            ibCloseCardName.setOnClickListener {
+                tvAddCard.visibility = View.VISIBLE
+                cvAddCard.visibility = View.GONE
             }
 
 
 
-            holder.itemView.findViewById<ImageButton>(R.id.ib_done_card_name).setOnClickListener {
+            ibDoneCardName.setOnClickListener {
                 val cardName =
-                    holder.itemView.findViewById<EditText>(R.id.et_card_name).text.toString()
+                    etCardName.text.toString()
 
                 if (cardName.isNotEmpty()) {
                     // Here we check the context is an instance of the TaskListActivity.
@@ -173,11 +173,11 @@ open class TaskListItemsAdapter(
                 }
             }
 
-            holder.itemView.findViewById<RecyclerView>(R.id.rv_card_list).layoutManager =
+            rvCardList.layoutManager =
                 LinearLayoutManager(context)
-            holder.itemView.findViewById<RecyclerView>(R.id.rv_card_list).setHasFixedSize(true)
+            rvCardList.setHasFixedSize(true)
             val adapter = CardListItemsAdapter(context, model.cards)
-            holder.itemView.findViewById<RecyclerView>(R.id.rv_card_list).adapter = adapter
+            rvCardList.adapter = adapter
 
             adapter.setOnClickListener(
                 object : CardListItemsAdapter.OnClickListener {
@@ -191,7 +191,7 @@ open class TaskListItemsAdapter(
 
             val dividerItemDecoration =
                 DividerItemDecoration(context, DividerItemDecoration.VERTICAL)
-            holder.itemView.findViewById<RecyclerView>(R.id.rv_card_list)
+            rvCardList
                 .addItemDecoration(dividerItemDecoration)
 
             val helper = ItemTouchHelper(
@@ -242,7 +242,7 @@ open class TaskListItemsAdapter(
                 }
             )
 
-            helper.attachToRecyclerView(holder.itemView.findViewById(R.id.rv_card_list))
+            helper.attachToRecyclerView(rvCardList)
 
         }
     }
@@ -278,7 +278,7 @@ open class TaskListItemsAdapter(
         builder.setMessage("Are you sure you want to delete $title.")
         builder.setIcon(android.R.drawable.ic_dialog_alert)
         //performing positive action
-        builder.setPositiveButton("Yes") { dialogInterface, which ->
+        builder.setPositiveButton("Yes") { dialogInterface, _ ->
             dialogInterface.dismiss() // Dialog will be dismissed
 
             if (context is TaskListActivity) {
@@ -287,7 +287,7 @@ open class TaskListItemsAdapter(
         }
 
         //performing negative action
-        builder.setNegativeButton("No") { dialogInterface, which ->
+        builder.setNegativeButton("No") { dialogInterface, _ ->
             dialogInterface.dismiss() // Dialog will be dismissed
         }
         // Create the AlertDialog
@@ -300,5 +300,5 @@ open class TaskListItemsAdapter(
     /**
      * A ViewHolder describes an item view and metadata about its place within the RecyclerView.
      */
-    class MyViewHolder(view: View) : RecyclerView.ViewHolder(view)
+    class MyViewHolder(val binding: ItemTaskBinding) : RecyclerView.ViewHolder(binding.root)
 }
