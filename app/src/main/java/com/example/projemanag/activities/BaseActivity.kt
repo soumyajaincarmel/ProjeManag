@@ -31,12 +31,11 @@ open class BaseActivity : AppCompatActivity() {
     fun showProgressDialog(text: String) {
         mProgressDialog = Dialog(this)
         progressDialogBinding = DialogProgressBinding.inflate(layoutInflater)
-        /*Set the screen content from a layout resource.
-        The resource will be inflated, adding all top-level views to the screen.*/
+
         mProgressDialog.setContentView(progressDialogBinding.root)
 
         progressDialogBinding.tvProgressText.text = text
-        //Start the dialog and display it on screen.
+
         mProgressDialog.show()
     }
 
