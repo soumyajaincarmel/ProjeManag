@@ -129,13 +129,13 @@ class CardDetailsActivity : BaseActivity() {
         builder.setIcon(android.R.drawable.ic_dialog_alert)
 
         //performing positive action
-        builder.setPositiveButton(resources.getString(R.string.yes)) { dialogInterface, which ->
+        builder.setPositiveButton(resources.getString(R.string.yes)) { dialogInterface, _ ->
             dialogInterface.dismiss() // Dialog will be dismissed
             deleteCard()
 
         }
         //performing negative action
-        builder.setNegativeButton(resources.getString(R.string.no)) { dialogInterface, which ->
+        builder.setNegativeButton(resources.getString(R.string.no)) { dialogInterface, _ ->
             dialogInterface.dismiss() // Dialog will be dismissed
         }
         // Create the AlertDialog
@@ -372,7 +372,7 @@ class CardDetailsActivity : BaseActivity() {
          */
         val dpd = DatePickerDialog(
             this,
-            DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
+            { _, yearDpd, monthOfYear, dayOfMonth ->
                 /*
                   The listener used to indicate the user has finished selecting a date.
                  Here the selected date is set into format i.e : day/Month/Year
@@ -387,7 +387,7 @@ class CardDetailsActivity : BaseActivity() {
                 val sMonthOfYear =
                     if ((monthOfYear + 1) < 10) "0${monthOfYear + 1}" else "${monthOfYear + 1}"
 
-                val selectedDate = "$sDayOfMonth/$sMonthOfYear/$year"
+                val selectedDate = "$sDayOfMonth/$sMonthOfYear/$yearDpd"
                 // Selected date it set to the TextView to make it visible to user.
                 binding.tvSelectDueDate.text = selectedDate
 
