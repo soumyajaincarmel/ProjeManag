@@ -63,7 +63,7 @@ class FirestoreClass {
                 // Here call a function of base activity for transferring the result to it.
                 when (activity) {
                     is SignInActivity -> {
-                        activity.signInSuccess(loggedInUser)
+                        activity.signInSuccess()
                     }
                     is MainActivity -> {
                         activity.updateNavigationUserDetails(loggedInUser, readBoardsList)

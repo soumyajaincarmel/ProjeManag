@@ -1,14 +1,15 @@
 package com.example.projemanag.activities
 
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.text.TextUtils
+import android.view.WindowInsets
 import android.view.WindowManager
 import android.widget.Toast
 import com.example.projemanag.R
 import com.example.projemanag.databinding.ActivitySignInBinding
 import com.example.projemanag.firebase.FirestoreClass
-import com.example.projemanag.models.User
 import com.google.firebase.auth.FirebaseAuth
 
 class SignInActivity : BaseActivity() {
@@ -25,10 +26,14 @@ class SignInActivity : BaseActivity() {
 
         auth = FirebaseAuth.getInstance()
 
-        window.setFlags(
-            WindowManager.LayoutParams.FLAG_FULLSCREEN,
-            WindowManager.LayoutParams.FLAG_FULLSCREEN
-        )
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            window.insetsController?.hide(WindowInsets.Type.statusBars())
+        } else {
+            window.setFlags(
+                WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN
+            )
+        }
 
         setUpActionBar()
 
@@ -103,7 +108,7 @@ class SignInActivity : BaseActivity() {
         }
     }
 
-    fun signInSuccess(user: User) {
+    fun signInSuccess() {
         hideProgressDialog()
         startActivity(Intent(this, MainActivity::class.java))
         finish()
