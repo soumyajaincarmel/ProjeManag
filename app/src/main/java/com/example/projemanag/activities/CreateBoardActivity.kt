@@ -135,7 +135,7 @@ class CreateBoardActivity : BaseActivity() {
         val assignedUsersArrayList: ArrayList<String> = ArrayList()
         assignedUsersArrayList.add(getCurrentUserID())
 
-        var board = Board(
+        val board = Board(
             etBoardName.text.toString(),
             mBoardImageURL,
             mUserName,
