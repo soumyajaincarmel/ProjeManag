@@ -175,7 +175,7 @@ class TaskListActivity : BaseActivity() {
         startActivityForResult(intent, CARD_DETAILS_REQUEST_CODE)
     }
 
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.menu_members, menu)
         return super.onCreateOptionsMenu(menu)
     }

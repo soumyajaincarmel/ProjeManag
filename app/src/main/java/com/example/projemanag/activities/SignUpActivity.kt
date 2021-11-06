@@ -1,7 +1,9 @@
 package com.example.projemanag.activities
 
+import android.os.Build
 import android.os.Bundle
 import android.text.TextUtils
+import android.view.WindowInsets
 import android.view.WindowManager
 import android.widget.Toast
 import com.example.projemanag.R
@@ -19,10 +21,15 @@ class SignUpActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivitySignUpBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        window.setFlags(
-            WindowManager.LayoutParams.FLAG_FULLSCREEN,
-            WindowManager.LayoutParams.FLAG_FULLSCREEN
-        )
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            window.insetsController?.hide(WindowInsets.Type.statusBars())
+        } else {
+            window.setFlags(
+                WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN
+            )
+        }
 
         setUpActionBar()
 
