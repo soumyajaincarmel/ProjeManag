@@ -266,7 +266,9 @@ class FirestoreClass {
         return currentUserID
     }
 
-
+    /**
+     * A function to get the list of user details which is assigned to the board.
+     */
     fun getAssignedMembersListDetails(activity: Activity, assignedTo: ArrayList<String>) {
         mFireStore.collection(Constants.USERS).whereIn(Constants.ID, assignedTo).get()
             .addOnSuccessListener { document ->
@@ -295,7 +297,9 @@ class FirestoreClass {
             }
     }
 
-
+    /**
+     * A function to get the user details from Firestore Database using the email address.
+     */
     fun getMemberDetails(activity: MembersActivity, email: String) {
         mFireStore.collection(Constants.USERS).whereEqualTo(Constants.EMAIL, email)
             .get()
@@ -314,6 +318,9 @@ class FirestoreClass {
             }
     }
 
+    /**
+     * A function to assign a updated members list to board.
+     */
     fun assignMemberToBoard(activity: MembersActivity, board: Board, user: User) {
 
         val assignedToHashMap = HashMap<String, Any>()
