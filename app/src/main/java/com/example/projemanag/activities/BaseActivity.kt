@@ -3,6 +3,7 @@ package com.example.projemanag.activities
 import android.app.Dialog
 import android.os.Bundle
 import android.os.Handler
+import android.os.Looper
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
@@ -60,7 +61,9 @@ open class BaseActivity : AppCompatActivity() {
             Toast.LENGTH_SHORT
         ).show()
 
-        Handler().postDelayed({ doubleBackToExitPressedOnce = false }, 2000)
+        Handler(Looper.getMainLooper()).postDelayed({
+            doubleBackToExitPressedOnce = false
+        }, 2000)
     }
 
     fun showErrorSnackBar(message: String) {
