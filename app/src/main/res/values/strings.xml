@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">ProjeManag</string>
 
 
@@ -45,7 +45,7 @@
     <string name="members">Members</string>
 
     <string name="add_member">Add Member</string>
-    <string name="cancel">Cancel</string>
+    <string name="cancel" tools:ignore="ButtonCase">CANCEL</string>
     <string name="add">ADD</string>
     <string name="search_member">Search Member</string>
 
