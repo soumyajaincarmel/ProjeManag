@@ -89,7 +89,7 @@ class MembersActivity : BaseActivity() {
         FirestoreClass().assignMemberToBoard(this, mBoardDetails, user)
     }
 
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.menu_add_member, menu)
         return super.onCreateOptionsMenu(menu)
     }
@@ -154,7 +154,7 @@ class MembersActivity : BaseActivity() {
             var result: String
             var connection: HttpURLConnection? = null
             try {
-                var url = URL(Constants.FCM_BASE_URL)
+                val url = URL(Constants.FCM_BASE_URL)
                 connection = url.openConnection() as HttpURLConnection
                 connection.doOutput = true
                 connection.doInput = true
