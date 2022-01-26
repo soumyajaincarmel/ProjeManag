@@ -86,5 +86,4 @@ Remodel the Project to use MVVM App Architecture (ViewModel and LiveData).
 Turn the Multi Activity App to Single Activity and Multiple Fragments.
 Integrate seamlessly with the apps and services the team relies on like Slack, Dropbox, Outlook, Gmail, Salesforce, InVision, Jira, and hundreds more.
 Use a RESTful API instead of Firebase Firestore Database.
-![image](https://user-images.githubusercontent.com/71961646/151150466-8c99298f-6a95-4c30-b742-a0ea3d485599.png)
 
