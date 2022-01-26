@@ -24,7 +24,7 @@ Proje Manag Uses Firebase Firestore Database - Google’s Firestore Firebase Dat
 * Cards can be moved up and down in the list (Drag and Drop feature).
 * Easily update User Profile - Set Name, Profile Picture, Phone Number, etc.
 
-Create your Tasks list - 
+### Create your Tasks list - ###
 
 * Manage your tasks with other members easily.
 * Assign different users to tasks.
