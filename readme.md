@@ -1,5 +1,5 @@
 <h1 align="center">PROJE MANAG - A TRELLO CLONE</h1>
-## Project Details
+<h2 align="left">Project Details</h2>
 
 Proje Manag - Trello Clone is a fully functioning task management Android App Developed in Kotlin that will allow users to Create/Manage their Accounts 
 and be Assigned to different Tasks in the form of Cards. This App uses the Firestore database for User Information and Firebase Authentication for User Sign Up/Sign In.
