@@ -26,11 +26,11 @@ Every User Profile / Member has the following features -
 
 Create your Tasks list - 
 
-*Manage your tasks with other members easily.
-*Assign different users to tasks.
-*Tasks are sorted & shown separately.
-*Option to Add, Edit & Delete Cards to your task.
-*Easily Update Cards - set Label Color, Assign Members, and Add Due Date.
+* Manage your tasks with other members easily.
+* Assign different users to tasks.
+* Tasks are sorted & shown separately.
+* Option to Add, Edit & Delete Cards to your task.
+* Easily Update Cards - set Label Color, Assign Members, and Add Due Date.
 
 Get notification from the App when somebody assigns you a Board.
 
