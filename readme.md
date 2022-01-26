@@ -1,3 +1,4 @@
+<h1 align="center">PROJE MANAG - A TRELLO CLONE</h1>
 # PROJE MANAG - A TRELLO CLONE #
 ## Project Details
 
