@@ -17,7 +17,7 @@ If the User is not Registered he/she has to first Sign Up to the App and then he
 
 Proje Manag Uses Firebase Firestore Database - Google’s Firestore Firebase Database (Cloud Storage) to store and manage User Data efficiently.
 
-Every User Profile / Member has the following features - 
+### Every User Profile / Member has the following features - ###
 
 * Each Member has all the boards he is assigned to.
 * Each Board has all the lists with task cards.
