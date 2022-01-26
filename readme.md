@@ -1,4 +1,4 @@
-# PROJE MANAG - A TRELLO CLONE
+# <h1 align="center"PROJE MANAG - A TRELLO CLONE</h1>
 ## Project Details
 
 Proje Manag - Trello Clone is a fully functioning task management Android App Developed in Kotlin that will allow users to Create/Manage their Accounts 
