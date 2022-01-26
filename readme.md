@@ -1,15 +1,12 @@
 <h1 align="center">PROJE MANAG - A TRELLO CLONE</h1>
+
+![1024](https://user-images.githubusercontent.com/71961646/151154689-95107417-8044-4059-847f-83759852ced5.png)
+
 <h2 align="left">Project Details</h2>
 
-Proje Manag - Trello Clone is a fully functioning task management Android App Developed in Kotlin that will allow users to Create/Manage their Accounts 
-and be Assigned to different Tasks in the form of Cards. This App uses the Firestore database for User Information and Firebase Authentication for User Sign Up/Sign In.
-The app also includes advanced Android features such as Drag n Drop, Recycler Views, Notifications, Splash Screen, Navigation Drawers, Third-party libraries 
-such as CircleImageView, Glide, Custom UI's, and much more!
-Currently, the Android Application is fully usable with Minimal functionality.
-It uses a Many to Many Database Structure.
+Proje Manag - Trello Clone is a fully functioning task management Android App Developed in Kotlin that will allow users to Create/Manage their Accounts and be Assigned to different Tasks in the form of Cards. This App uses the Firestore database for User Information and Firebase Authentication for User Sign Up/Sign In. The app also includes advanced Android features such as Drag n Drop, Recycler Views, Notifications, Splash Screen, Navigation Drawers, Third-party libraries such as CircleImageView, Glide, Custom UI's, and much more! Currently, the Android Application is fully usable with Minimal functionality. It uses a Many to Many Database Structure.
 
 <h2 align="left">Flow Diagram of Proje Manag</h2>
-
 
 ![image](https://user-images.githubusercontent.com/71961646/151147165-20138699-144c-4da6-9497-1966c1c89fe5.png)
 
@@ -20,12 +17,12 @@ If the User is not Registered he/she has to first Sign Up to the App and then he
 
 Proje Manag Uses Firebase Firestore Database - Google’s Firestore Firebase Database (Cloud Storage) to store and manage User Data efficiently.
 
-Ever User Profile / Member has the following features - 
+Every User Profile / Member has the following features - 
 
 1.	Each Member has all the boards he is assigned to.
 2.	Each Board has all the lists with task cards.
 3.	Cards can be moved up and down in the list (Drag and Drop feature).
-4.	Easily update User Profile - Set Name, Profile Picture and Phone Number etc.
+4.	Easily update User Profile - Set Name, Profile Picture, Phone Number, etc.
 
 Create your Tasks list - 
 
@@ -33,9 +30,9 @@ Create your Tasks list -
 2.	Assign different users to tasks.
 3.	Tasks are sorted & shown separately.
 4.	Option to Add, Edit & Delete Cards to your task.
-5.	Easily Update Cards - set Label Color, Assign Members and Add Due Date.
+5.	Easily Update Cards - set Label Color, Assign Members, and Add Due Date.
 
-Get notification from the App when somebody assigns you with a board.
+Get notification from the App when somebody assigns you a Board.
 
 It is Fast, Compact & Easy to Use.
 
@@ -81,10 +78,9 @@ It is Fast, Compact & Easy to Use.
 According to my analysis of Proje Manag, it’s been proven that it is the sure winner in a collaboration tool that organizes your projects into boards, It tells you what's being worked on and who's working on what.
 It is a fully functioning task management Android App. The App supports personal Task Boards, allowing simple and organized task tracking that separates overarching goals or topics from specific tasks.
 
-Although there are certain features that I plan to inculcate in future, so the Future Scope of this Project is as follows : 
+Although there are certain features that I plan to inculcate in the future, so the Future Scope of this Project is as follows : 
 
 Remodel the Project to use MVVM App Architecture (ViewModel and LiveData).
-Turn the Multi Activity App to Single Activity and Multiple Fragments.
+Turn the Multi-Activity App to Single Activity and Multiple Fragments.
 Integrate seamlessly with the apps and services the team relies on like Slack, Dropbox, Outlook, Gmail, Salesforce, InVision, Jira, and hundreds more.
 Use a RESTful API instead of Firebase Firestore Database.
-
