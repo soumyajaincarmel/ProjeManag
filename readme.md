@@ -8,11 +8,12 @@ such as CircleImageView, Glide, Custom UI's, and much more!
 Currently, the Android Application is fully usable with Minimal functionality.
 It uses a Many to Many Database Structure.
 
-## Flow Diagram of Proje Manag
+<h2 align="left">Flow Diagram of Proje Manag</h2>
+
 
 ![image](https://user-images.githubusercontent.com/71961646/151147165-20138699-144c-4da6-9497-1966c1c89fe5.png)
 
-## Implementation Details
+<h2 align="left">Implementation Details</h2>
 
 The Project has an Authentication System where the User can Sign Up / Sign In.
 If the User is not Registered he/she has to first Sign Up to the App and then he/she can Sign In to access the App.
@@ -38,7 +39,7 @@ Get notification from the App when somebody assigns you with a board.
 
 It is Fast, Compact & Easy to Use.
 
-## Android App Snapshots
+<h2 align="left">Android App Snapshots</h2>
 
 ![image](https://user-images.githubusercontent.com/71961646/151148105-9958cc89-9039-4032-b3b6-5023eb2523fc.png)
 ![image](https://user-images.githubusercontent.com/71961646/151148114-00d94698-4c5f-4f39-8557-b0a5a823e1c3.png)
@@ -75,7 +76,7 @@ It is Fast, Compact & Easy to Use.
 ![image](https://user-images.githubusercontent.com/71961646/151148590-0e1cf8cb-9c1c-43d1-88c5-373927b85870.png)
 ![image](https://user-images.githubusercontent.com/71961646/151148602-ce329634-3078-4c96-99a4-ef414c773dc5.png)
 
-## Conclusion and Futute Scope of Proje Manag
+<h2 align="left">Conclusion and Futute Scope of Proje Manag</h2>
 
 According to my analysis of Proje Manag, it’s been proven that it is the sure winner in a collaboration tool that organizes your projects into boards, It tells you what's being worked on and who's working on what.
 It is a fully functioning task management Android App. The App supports personal Task Boards, allowing simple and organized task tracking that separates overarching goals or topics from specific tasks.
