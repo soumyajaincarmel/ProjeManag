@@ -19,10 +19,10 @@ Proje Manag Uses Firebase Firestore Database - Google’s Firestore Firebase Dat
 
 Every User Profile / Member has the following features - 
 
-1.	Each Member has all the boards he is assigned to.
-2.	Each Board has all the lists with task cards.
-3.	Cards can be moved up and down in the list (Drag and Drop feature).
-4.	Easily update User Profile - Set Name, Profile Picture, Phone Number, etc.
+* Each Member has all the boards he is assigned to.
+* Each Board has all the lists with task cards.
+* Cards can be moved up and down in the list (Drag and Drop feature).
+* Easily update User Profile - Set Name, Profile Picture, Phone Number, etc.
 
 Create your Tasks list - 
 
