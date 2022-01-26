@@ -1,22 +1,11 @@
-# <h1 align="center"PROJE MANAG - A TRELLO CLONE</h1>
+# PROJE MANAG - A TRELLO CLONE #
 ## Project Details
 
 Proje Manag - Trello Clone is a fully functioning task management Android App Developed in Kotlin that will allow users to Create/Manage their Accounts 
 and be Assigned to different Tasks in the form of Cards. This App uses the Firestore database for User Information and Firebase Authentication for User Sign Up/Sign In.
 The app also includes advanced Android features such as Drag n Drop, Recycler Views, Notifications, Splash Screen, Navigation Drawers, Third-party libraries 
 such as CircleImageView, Glide, Custom UI's, and much more!
-
 Currently, the Android Application is fully usable with Minimal functionality.
-
-It uses a Many to Many Database Structure.
-
-According to my analysis of Proje Manag, it’s been proven that it is the sure winner in a collaboration tool that organizes your projects into boards,
-It tells you what's being worked on and who's working on what.
-It is a fully functioning task management Android App.
-The App supports personal Task Boards, allowing simple and organized task tracking that separates overarching goals or topics from specific tasks.
-
-Proje Manag is a Trello Clone Android Application built Using Kotlin Language. The database is stored in Google's Firebase.
-In this Project, I have used Firebase Firestore Database.
 It uses a Many to Many Database Structure.
 
 ## Flow Diagram of Proje Manag
@@ -86,42 +75,16 @@ It is Fast, Compact & Easy to Use.
 ![image](https://user-images.githubusercontent.com/71961646/151148590-0e1cf8cb-9c1c-43d1-88c5-373927b85870.png)
 ![image](https://user-images.githubusercontent.com/71961646/151148602-ce329634-3078-4c96-99a4-ef414c773dc5.png)
 
-## Conclusion of Proje Manag
+## Conclusion and Futute Scope of Proje Manag
 
-According to my analysis of Proje Manag, it’s been proven that it is the sure winner in a collaboration tool that organizes your projects into boards. It tells you what's being worked on and who's working on what.
-
+According to my analysis of Proje Manag, it’s been proven that it is the sure winner in a collaboration tool that organizes your projects into boards, It tells you what's being worked on and who's working on what.
 It is a fully functioning task management Android App. The App supports personal Task Boards, allowing simple and organized task tracking that separates overarching goals or topics from specific tasks.
 
-Working with this application is a rewarding experience as it improves Workflow and Project Management.
+Although there are certain features that I plan to inculcate in future, so the Future Scope of this Project is as follows : 
 
-With visually stunning and informative Kanban Boards, Cards and Lists, you can stay aware of all the projects, who is working on what, and what are the deadlines.
+Remodel the Project to use MVVM App Architecture (ViewModel and LiveData).
+Turn the Multi Activity App to Single Activity and Multiple Fragments.
+Integrate seamlessly with the apps and services the team relies on like Slack, Dropbox, Outlook, Gmail, Salesforce, InVision, Jira, and hundreds more.
+Use a RESTful API instead of Firebase Firestore Database.
+![image](https://user-images.githubusercontent.com/71961646/151150466-8c99298f-6a95-4c30-b742-a0ea3d485599.png)
 
-Managing and Designing Workflows based on your style helps you hit all the deadlines making your Project Management much simpler.
-
-It has a well-organized Board & Card System - It uses a unique Board & Card system, which is the most accessible and most User-Friendly Organised Workflow method. You can have a Board for each project, Cards for various tasks that you can assign to team members, and Lists to keep track of progress.
-
-It is built in with a Searchable Database - with the focus on security, it is ensured that all the progress is stored and backed up in case of a failure.
-
-It follows the Kanban System - Toyota founded the Kanban system in the 1950s, and it improves task scheduling by reducing them into smaller components. This system uses Boards and Cards to reveal bottlenecks in the development process.
-
-It gives the User Instant Notifications - Users never miss out on a task because of its seamless notifications system. You will receive alerts when a Board is assigned to you automatically.
-
-
-
-It is a Collaborative Platform - Users can invite other people to their personal Boards with a few clicks. It also allows Task Assignment to Members. Alternatively, you can even invite clients to create their Workflow Stage.
-
-It is super flexible - It helps teams to create Workflow while Planning Content for Launching a New campaign.
-
-Proje Manag is an amazing tool for individuals or companies who enjoy using a visual project management tool with plenty of opportunities for integrations. For individuals or companies who need a tool that encourages collaboration, you can get more done, more efficiently too.
-
-## Future Scope
-
-There are certain features that I plan to inculcate in future, so the Future Scope of this Project is as follows : 
-
-●	Remodel the Project to use MVVM App Architecture (ViewModel and LiveData).
-
-●	Turn the Multi Activity App to Single Activity and Multiple Fragments.
-
-●	Integrate seamlessly with the apps and services the team relies on like Slack, Dropbox, Outlook, Gmail, Salesforce, InVision, Jira, and hundreds more.
-
-●	Use a RESTful API instead of Firebase Firestore Database.
